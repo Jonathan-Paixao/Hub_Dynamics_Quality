@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Hub Dynamics</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css"> <link rel="stylesheet" href="/static/css/hub.css">
+    <link rel="stylesheet" href="/static/css/shared.css">
+    <style>
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+    </style>
+</head>
+<body class="hub-page">
+    <script>
+      // Script de carregamento instantâneo do tema (para evitar flicker)
+      (function() {
+        try {
+          const savedTheme = localStorage.getItem('hubTheme') || 'light';
+          if (savedTheme === 'dark') {
+            document.body.classList.add('theme-dark');
+          } else if (savedTheme === 'light') {
+            // Nenhuma classe necessária para o padrão 'light'
+          } else {
+            // Checa o tema do sistema
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+              document.body.classList.add('theme-dark');
+            }
+          }
+        } catch (e) {
+          // Ignora erros (ex: localStorage desativado)
+        }
+      })();
+    </script>
+        <script>
+            // Define o atributo de idioma o mais cedo possível
+            (function() {
+                try {
+                    const storedUser = localStorage.getItem('hubUsername') || '_default';
+                    const savedLanguage = localStorage.getItem(`hubLanguage_${storedUser}`) || localStorage.getItem('hubLanguage_default') || 'pt';
+                    document.documentElement.setAttribute('lang', savedLanguage === 'en' ? 'en' : 'pt-br');
+                    document.documentElement.dataset.hubLang = savedLanguage;
+                } catch (error) {
+                    document.documentElement.setAttribute('lang', 'pt-br');
+                }
+            })();
+        </script>
+    
+    <div class="top-header">
+        <div class="logo-area-group">
+            <div class="logo-title">
+                <img src="/static/icones/hub_logo.png" alt="" class="logo-light">
+                <img src="/static/icones/hub_logo_branco.png" alt="" class="logo-dark">
+                <span>Hub Dynamics</span>
+            </div>
+            <div class="hub-area-selector" id="hub-area-selector" style="display:none;">
+                <button class="hub-area-btn" id="hub-area-btn" type="button">
+                    <span id="hub-area-btn-label">...</span>
+                    <i class="fas fa-chevron-down hub-area-chevron" id="hub-area-chevron"></i>
+                </button>
+                <div class="hub-area-dropdown" id="hub-area-dropdown"></div>
+            </div>
+        </div>
+        <div class="header-tools">
+            
+            <button id="about-btn" aria-label="Sobre" title="Sobre"><i class="fas fa-question-circle"></i></button>
+            <button id="settings-btn" aria-label="Configurações" title="Configurações"><i class="fas fa-cog"></i></button>
+            <div class="access-container">
+                <button id="access-btn" class="access-button" aria-label="Acesso" title="Acesso">
+                    <img id="profile-img" src="{{ profile_image or '/static/icones/default_profile.png' }}" alt="Perfil" class="profile-image-thumb">
+                </button>
+                <div class="access-dropdown" id="access-dropdown">
+                    </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="hub-container">
+        <div class="search-container">
+            <label for="search-bar" class="visually-hidden">Pesquisar ferramenta</label>
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="search-bar" placeholder="Pesquisar ferramenta...">
+            <div class="search-shortcut-hint" aria-hidden="true">
+                <span class="shortcut-key">Ctrl</span>
+                <span class="shortcut-key">K</span>
+            </div>
+
+            <div id="search-dropdown-results" class="search-dropdown">
+                <div id="search-dropdown-body" class="search-dropdown-body"></div>
+                <div class="search-dropdown-footer">
+                    <div class="shortcut-item">
+                        <span class="shortcut-key">↑</span>
+                        <span class="shortcut-key">↓</span>
+                        <span class="shortcut-label">Mover</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-key">Enter</span>
+                        <span class="shortcut-label">Selecionar</span>
+                    </div>
+                    <div class="shortcut-item">
+                        <span class="shortcut-key">Esc</span>
+                        <span class="shortcut-label">Sair</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hub-cards" id="hub-cards-container">
+            {% if role == 'Executor' %}
+            <a href="/automacao" class="hub-card" aria-label="Automações. Execute robôs para tarefas de SAP, BW e extração de relatórios.">
+                <div class="card-media-area">
+                    <div class="card-preview"> <img src="/static/gifs/automacao_preview.gif" alt="Preview Automações"> </div>
+                    <div class="card-content">
+                        <div class="card-icon"><i class="fas fa-robot" aria-hidden="true"></i></div>
+                        <h2>Automações</h2>
+                    </div>
+                </div>
+                <p>Execute robôs para tarefas de SAP, BW e extração de relatórios.</p>
+            </a>
+            {% else %}
+                <div class="hub-card disabled">
+                    <div class="card-media-area">
+                        <div class="card-content">
+                            <div class="card-icon"><i class="fas fa-robot" aria-hidden="true"></i></div>
+                            <h2>Automações</h2>
+                        </div>
+                    </div>
+                    
+                    {% if role %}
+                        <p>Solicite para ter acesso.</p>
+                    {% else %}
+                        <p>Faça login para ter acesso.</p>
+                    {% endif %}
+                    
+                </div>
+            {% endif %}
+
+            <a href="/dashboards" class="hub-card" aria-label="Dashboards. Acesse o portal com os dashboards do Looker Studio e Tableau.">
+                <div class="card-media-area">
+                    <div class="card-preview"> <img src="/static/gifs/dashboards_preview.gif" alt="Preview Dashboards"> </div>
+                    <div class="card-content">
+                        <div class="card-icon"><i class="fas fa-chart-pie" aria-hidden="true"></i></div>
+                        <h2>Dashboards</h2>
+                    </div>
+                </div>
+                <p>Acesse o portal com os dashboards do Looker Studio e Tableau.</p>
+            </a>
+
+            {% if role == 'Executor' or role == 'Analista' %}
+            <a href="/drive" class="hub-card" aria-label="Drive Online. Navegue pelas pastas da rede sem necessidade de uso da VPN.">
+                <div class="card-media-area">
+                    <div class="card-preview"> <img src="/static/gifs/drive_preview.gif" alt="Preview Drive"> </div>
+                    <div class="card-content">
+                        <div class="card-icon"> <i class="fas fa-hdd" aria-hidden="true"></i> </div>
+                        <h2>Drive Online</h2>
+                    </div>
+                </div>
+                <p>Navegue pelas pastas da rede sem necessidade de uso da VPN.</p>
+            </a>
+            {% else %}
+                <div class="hub-card disabled">
+                    <div class="card-media-area">
+                        <div class="card-content">
+                            <div class="card-icon"> <i class="fas fa-hdd" aria-hidden="true"></i> </div>
+                            <h2>Drive Online</h2>
+                        </div>
+                    </div>
+                    <p>Faça login para ter acesso.</p> </div>
+            {% endif %}
+
+        </div>
+        
+        <div class="quick-links-section" id="quick-links-section">
+            <h3>Acesso Rápido</h3>
+            <div class="quick-links-container" id="quick-links-container">
+                </div>
+        </div>
+
+    </div>
+    
+    <div class="settings-modal-overlay" id="settings-overlay">
+        <div class="settings-modal hub-settings-modal">
+            <div class="settings-body hub-settings-body">
+                <div class="setting-group">
+                        <label>Aparência</label>
+                        <div class="theme-selector">
+                            <div class="theme-option" data-theme="light" title="Modo Claro">
+                                <i class="fas fa-sun"></i>
+                                <span>Claro</span>
+                            </div>
+                            <div class="theme-option" data-theme="dark" title="Modo Escuro">
+                                <i class="fas fa-moon"></i>
+                                <span>Escuro</span>
+                            </div>
+                            <div class="theme-option" data-theme="system" title="Padrão do Sistema">
+                                <i class="fas fa-desktop"></i>
+                                <span>Sistema</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-group language-settings">
+                        <label for="settings-language-select">Idioma</label>
+                        <p id="settings-language-hint" class="helper-text language-inline-hint settings-language-hint">Selecione o idioma de exibição.</p>
+                        <div class="language-selector">
+                            <select id="settings-language-select" class="profile-input" aria-label="Idioma" aria-describedby="settings-language-hint">
+                                <option value="pt">Português</option>
+                                <option value="en">Inglês</option>
+                            </select>
+                        </div>
+                        <p id="settings-language-status" class="hub-form-status hidden" aria-live="polite"></p>
+                    </div>
+            </div>
+            <div class="settings-footer">
+                <button class="settings-close-action" id="settings-footer-close">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="settings-modal-overlay" id="about-overlay">
+        <div class="settings-modal about-modal">
+            <div class="settings-body about-modal-body" id="config-body">
+                <div class="about-section">
+                    <p><strong>Versão Atual:</strong> v1.8.0</p>
+                    <p><strong>Responsáveis pelo Projeto:</strong></p>
+                    <ul>
+                        <li>Mateus Lopes (<a href="https://github.com/Etamus" target="_blank" rel="noopener noreferrer">GitHub</a>)</li>
+                        <li>Jonathan Paixão (<a href="https://github.com/Jonathan-Paixao" target="_blank" rel="noopener noreferrer">GitHub</a>)</li>
+                    </ul>
+                </div>
+                
+                <div class="devlog-container">
+                    <label>Histórico de Versões</label>
+                    <ul>
+                        <li><strong>v1.8.0:</strong> Correção de preview na em automações e melhoria no design do agendador de tarefas</li>
+                        <li><strong>v1.7.8:</strong> Finalização da atualização de design e reestruturação da Solicitação de Acesso</li>
+                        <li><strong>v1.6.8:</strong> Atualização de design em todo o Hub e novas lógicas</li>
+                        <li><strong>v1.5.3:</strong> Readequação do número da versão atual e atualização do layout de janelas</li>
+                        <li><strong>v1.4.8:</strong> Lançamento do novo design de janelas do Hub</li>
+                        <li><strong>v1.3.3:</strong> Layout alterado por completo, melhorias de perfil e correções</li>
+                        <li><strong>v1.2.8:</strong> Melhoria de layout e nova seleção de tela nas páginas</li>
+                        <li><strong>v1.2.3:</strong> Melhorias no Drive Online e alterações nos ícones das páginas</li>
+                        <li><strong>v1.2.1:</strong> Novo perfil de usuário e correção de "alert" da janela de registro</li>
+                        <li><strong>v1.1.9:</strong> Correção de icones e melhoria do modo escuro</li>
+                        <li><strong>v1.1.7:</strong> Adição de novas lógicas de "@media" para atualização do modo mobile</li>
+                        <li><strong>v1.1.0:</strong> Adicionado login para Tableau no Dashboards e correção da quebra de linha do Chatbot</li>
+                        <li><strong>v1.0.5:</strong> Barra de pesquisa aprimorada e novo preview na página de automações</li>
+                        <li><strong>v1.0.2:</strong> Atualização da lógica e prompt do Chatbot</li>
+                        <li><strong>v1.0.0:</strong> Melhoria no desbloqueio de usuário e informações do Drive Online</li>
+                        <li><strong>v0.9.5:</strong> Adicionado botão de criação de usuário na tela de administração</li>
+                        <li><strong>v0.9.0:</strong> Janela de administração aprimorada e correções de problemas</li>
+                        <li><strong>v0.8.9:</strong> Melhoria de layout da página incial e lógica da barra de pesquisa</li>
+                        <li><strong>v0.8.7:</strong> Novo Chatbot com integração de inteligência artificial</li>
+                        <li><strong>v0.7.7:</strong> Melhorias no Agendador de Tarefas</li>
+                        <li><strong>v0.7.5:</strong> Novo layout, funcionalidades e correções gerais</li>
+                        <li><strong>v0.7.0:</strong> Melhorias no registro, tela de administração e lógica dos perfis</li>
+                        <li><strong>v0.6.0:</strong> Novo registro de usuário, consulta e sistema de perfis</li>
+                        <li><strong>v0.5.0:</strong> Mudanças de placeholders e ajustes de icones no agendamento de tarefas</li>
+                        <li><strong>v0.4.9:</strong> Melhorias no perfil de usuário do hub</li>
+                        <li><strong>v0.4.7:</strong> Agendador de tarefas aprimorado e correções de estrutura</li>
+                        <li><strong>v0.4.5:</strong> Acesso de usuário, conexões e melhorias na página de automatizações</li>
+                        <li><strong>v0.3.5:</strong> Qualidade de vida, correções de instabilidade e melhorias nas páginas</li>
+                        <li><strong>v0.3.0:</strong> Adicionado Barra de Pesquisa na Página Inicial</li>
+                        <li><strong>v0.2.5:</strong> Adição de apresentações 'Processo de devolução' ao Library</li>
+                        <li><strong>v0.2.4:</strong> Adição de arquivos 'google apresentações' ao Library. Adição do label data 'Gardem'.</li>
+                        <li><strong>v0.2.3:</strong> Início da preparação para port mobile.</li>
+                        <li><strong>v0.2.2:</strong> Adição de label referenciando a qual indicador o dashboard atende.</li>
+                        <li><strong>v0.2.1:</strong> Adição de preview aos dashboards pendentes</li>
+                        <li><strong>v0.1.6:</strong> Correção: Oculta o chatbot ao visualizar dashboards do Looker para evitar sobreposição</li>
+                        <li><strong>v0.1.5:</strong> Correção: Adiciona sistema de paginação e preview latera com etiquetas</li>
+                        <li><strong>v0.1.4:</strong> Correção do servidor_unico.py</li>
+                        <li><strong>v0.1.3:</strong> Remoção de Arquivos Desnecessários</li>
+                        <li><strong>v0.1.2:</strong> Atualizações Gerais e Novos Aprimoramentos</li>
+                        <li><strong>v0.1.0:</strong> Atualização Inicial</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="settings-footer about-modal-footer">
+                <button class="settings-close-action" id="about-footer-close">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+
+    {% include 'partials/access_modals.html' %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script> <script src="/static/js/shared.js" defer></script>
+    <script src="/static/js/hub.js" defer></script>
+    
+</body>
+</html>

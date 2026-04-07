@@ -1,0 +1,1071 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600&display=swap');
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 40px 20px 20px 20px;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Ajustes de hover específicos para ícones do header */
+.logout-button:hover {
+    color: #dc3545;
+}
+
+.scheduler-button:hover {
+    color: var(--accent-color);
+}
+
+
+.container {
+    background-color: transparent;
+    text-align: center;
+    width: 90%;
+    max-width: 550px;
+    margin: 20px auto;
+}
+
+.main-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    color: var(--text-primary-color);
+}
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--text-secondary-color);
+    margin-bottom: 60px;
+    margin-top: 20px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.system-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 30px;
+}
+.system-selector label { display: flex; align-items: center; gap: 10px; cursor: pointer; transition: all 0.3s ease; }
+.system-selector input[type="radio"] { 
+    -webkit-appearance: none; appearance: none; 
+    background-color: var(--card-bg-color); 
+    margin: 0; 
+    color: var(--text-secondary-color); 
+    width: 1.25em; height: 1.25em; 
+    border: 0.15em solid var(--border-color); 
+    border-radius: 50%; display: grid; place-content: center; 
+}
+.system-selector input[type="radio"]::before { 
+    content: ""; width: 0.75em; height: 0.75em; border-radius: 50%; 
+    transform: scale(0); transition: 120ms transform ease-in-out; 
+    box-shadow: inset 1em 1em var(--accent-color); 
+}
+.system-selector input[type="radio"]:checked { border-color: var(--accent-color); }
+.system-selector input[type="radio"]:checked::before { transform: scale(1); }
+.system-selector img { height: 30px; }
+.system-selector label:has(input[value="salesforce"]) img { height: 55px; }
+.system-selector:has(input:checked) label {
+    opacity: 0.6;
+    filter: grayscale(80%);
+}
+.system-selector label:has(input:checked) {
+    opacity: 1;
+    filter: grayscale(0);
+    transform: scale(1.1);
+}
+
+/* MARGEM SUPERIOR DAS TAREFAS DIMINUÍDA */
+.tasks-section { margin-top: 20px; }
+.button-container { display: flex; flex-direction: column; gap: 15px; align-items: center; padding-top: 20px; }
+
+/* ESTILO DOS BOTÕES DE TAREFA ATUALIZADO (IGUAL AO area-button) */
+.task-button {
+    display: flex; 
+    position: relative; 
+    align-items: stretch; /* Estica os filhos verticalmente */
+    justify-content: center;
+    background-color: var(--accent-color); 
+    color: white;
+    
+    font-size: 1.1rem; /* Igual ao area-button */
+    font-weight: 600;  /* Igual ao area-button */
+    width: 90%;        /* Igual ao area-button */
+    max-width: 300px;  /* Igual ao area-button */
+    border-radius: 8px;/* Igual ao area-button */
+
+    overflow: hidden; 
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.task-button:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+    background-color: var(--accent-color-hover);
+}
+
+.button-text { 
+    flex-grow: 1; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 15px 20px; 
+    transition: background-color 0.2s ease; 
+}
+
+/* --- NOVOS ESTILOS PARA O GRUPO "Base Mãe" --- */
+.task-button-group {
+    width: 90%; 
+    max-width: 300px; 
+    position: relative; 
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+}
+.task-button-group .task-button {
+    width: 100%; 
+    margin: 0;
+    flex-grow: 1; 
+}
+.task-button-download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: -65px; 
+    top: 0;
+    bottom: 0; 
+    width: 55px; 
+    background-color: transparent; 
+    color: #00b341; 
+    font-size: 1.5rem; 
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.task-button-download:hover {
+    transform: translateY(-2px);
+    background-color: var(--bg-color); 
+    color: #008a32; 
+    box-shadow: none; 
+}
+.task-button-download.inactive {
+    background-color: transparent; 
+    color: var(--text-secondary-color); 
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+/* --- FIM DOS ESTILOS DE GRUPO --- */
+
+.hidden { display: none !important; }
+
+/* Status Box - Posição Atualizada */
+.status-box {
+    position: fixed; 
+    top: 20px; 
+    right: 20px; 
+    z-index: 1100;
+    padding: 14px 18px; border-radius: 10px; font-weight: 500;
+    width: clamp(200px, 22vw, 260px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    visibility: hidden; opacity: 0; transform: translateY(-10px);
+    transition: all 0.4s ease-in-out;
+}
+.status-box.visible { visibility: visible; opacity: 1; transform: translateY(0); }
+.status-box.processing { background-color: var(--bg-color); color: var(--text-tertiary-color); }
+.status-box.success { background-color: #d4edda; color: #155724; }
+.status-box.error { background-color: #f8d7da; color: #721c24; }
+
+/* --- CORREÇÃO DE FADE (REMOVIDO backdrop-filter) --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7); /* Fundo mais escuro */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0; 
+    visibility: hidden; 
+    transition: opacity 0.25s ease, visibility 0s 0.25s; /* Fade out suave */
+    /* backdrop-filter removido */
+}
+.modal-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.25s ease; /* Fade in suave */
+}
+
+.modal-content {
+    background-color: var(--card-bg-color);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 320px; 
+    text-align: center;
+    position: relative; 
+}
+
+/* Botão 'X' de Fechar */
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--text-secondary-color);
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+}
+.modal-close:hover {
+    color: var(--text-primary-color);
+}
+.modal-close:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.modal-logo {
+    height: 35px;
+    margin-bottom: 10px;
+}
+#modal-logo-salesforce {
+    height: 60px;
+}
+.modal-content p {
+    color: var(--text-secondary-color);
+    margin-bottom: 25px;
+    margin-top: 0;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.modal-input-group {
+    text-align: left;
+}
+.modal-input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--text-tertiary-color);
+}
+.modal-input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--text-primary-color);
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+/* Botões genéricos */
+.button {
+    border: none; padding: 12px 20px; border-radius: 8px; 
+    cursor: pointer; font-size: 15px; font-weight: 600; 
+    transition: all 0.2s ease;
+}
+
+/* Botão "Logar" (do modal de login) com margem superior */
+.modal-form .btn-execute {
+    width: 60%;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px; 
+}
+
+/* Container para botões Sim/Não (Modal de Confirmação) */
+.modal-button-container {
+    display: flex;
+    justify-content: center;
+    gap: 5px; 
+    margin-top: -20px; 
+}
+.modal-button-container .button {
+    width: 120px; 
+    margin: 0;
+}
+
+/* Estilos dos botões do modal */
+.button.btn-execute {
+    background-color: #28a745; 
+    color: white;
+}
+.button.btn-execute:hover {
+    background-color: #218838;
+}
+.button.btn-cancel {
+    background-color: var(--bg-color);
+    color: var(--text-secondary-color);
+    border: 1px solid var(--border-color);
+}
+.button.btn-cancel:hover {
+    background-color: var(--border-color);
+}
+.button.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+.button.btn-danger:hover {
+    background-color: #c82333;
+}
+
+
+.button:disabled {
+    background-color: #cccccc !important; 
+    cursor: not-allowed; 
+    opacity: 0.7; 
+}
+
+.task-button.disabled { 
+    background-color: #cccccc !important; 
+    cursor: not-allowed; 
+    transform: none; 
+    opacity: 0.7; 
+    pointer-events: none; 
+    box-shadow: none !important; 
+}
+
+/* 1. Define o conteúdo do modal */
+#confirm-modal-overlay .modal-content.modal-confirm {
+    max-width: 320px; /* Um pouco mais de espaço */
+    padding: 30px; /* Padding simétrico */
+    text-align: center; /* Garante que tudo esteja centralizado */
+}
+
+/* 2. Estilo do Ícone (fa-exclamation-triangle) */
+.modal-confirm-icon {
+    font-size: 3rem; /* Ícone grande */
+    color: #dc3545; /* Cor de perigo (vermelho) */
+    margin-bottom: 20px;
+    display: block; /* Garante que a margem funcione */
+}
+
+/* 3. Estilo do Título (H2) */
+#confirm-modal-overlay h2 {
+    font-size: 1.5rem;
+    color: var(--text-primary-color);
+    margin-top: 0;
+    margin-bottom: 55px; /* Espaçamento limpo (sem margens negativas) */
+}
+
+/* 4. Contêiner dos Botões */
+#confirm-modal-overlay .modal-button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Aumenta o espaço entre os botões */
+    /* margin-top: -20px; (REMOVIDO) */
+}
+
+/* 5. Os Botões (Sim/Não) */
+#confirm-modal-overlay .modal-button-container .button {
+    flex: 1; /* Faz os botões ocuparem o espaço igualmente */
+    max-width: 130px; /* Define uma largura máxima */
+    padding: 10px 15px; /* Padding um pouco menor */
+    margin: 0;
+}
+#confirm-modal-overlay .modal-button-container .button.btn-danger:hover {
+    background-color: #8a1823; /* Vermelho escuro */
+    border-color: #8a1823;
+}
+/* --- NOVO: Estilos do Modal Agendador (Redesign) --- */
+#scheduler-modal-overlay .settings-modal {
+    max-width: 600px;
+    width: min(90%, 600px);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 12px 40px var(--shadow-color-hover);
+    padding: 0;
+    overflow: hidden;
+}
+
+.scheduler-modal-body {
+    padding: 20px 28px 24px;
+}
+
+.scheduler-body {
+    width: 100%;
+}
+
+.scheduler-form {
+    padding: 18px;
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    box-shadow: 0 12px 30px var(--shadow-color-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.scheduler-form h3 {
+    margin: 0 0 16px 0;
+    color: var(--text-primary-color);
+}
+.scheduler-helper-text {
+    margin: 0 0 35px;
+    font-size: 0.9rem;
+    color: var(--text-secondary-color);
+}
+.scheduler-modal-footer {
+    justify-content: flex-end;
+}
+
+.scheduler-form .modal-input-group {
+    margin-bottom: 16px;
+    width: 100%;
+    max-width: 360px;
+}
+
+/* NOVO: Wrapper para centralizar o botão "Adicionar" */
+.scheduler-button-container {
+    text-align: center;
+    margin-top: 28px;
+    margin-bottom: 14px; 
+    width: 100%;
+    max-width: 360px;
+}
+/* BOTÃO "ADICIONAR" MENOR E CENTRALIZADO */
+.scheduler-form .button.btn-execute {
+    width: 180px;
+    margin: 0 auto;
+    background-color: var(--accent-color); 
+}
+
+.scheduler-form .button.btn-execute:hover {
+    background-color: var(--accent-color-hover);
+}
+
+/* NOVO: Estilos para Data/Hora Lado a Lado */
+.scheduler-datetime-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: flex-start;
+    justify-content: center;
+}
+.scheduler-datetime-group .modal-input-group {
+    flex: 0 1 360px;
+}
+
+
+.scheduler-tab-panels {
+    margin-top: 24px;
+}
+
+.scheduler-tab-panel {
+    display: none;
+    animation: schedulerTabFade 0.25s ease;
+}
+
+.scheduler-tab-panel.active {
+    display: block;
+}
+
+.scheduler-tab-panel[hidden] {
+    display: none !important;
+}
+
+.scheduler-queue {
+    padding: 22px;
+    background-color: var(--card-bg-color);
+    display: flex;
+    flex-direction: column;
+    border-radius: 14px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 12px 30px var(--shadow-color-light);
+    gap: 16px;
+}
+
+.scheduler-nav-tabs {
+    justify-content: center;
+    gap: 12px;
+    padding: 18px 32px 20px;
+    margin: -20px -28px 18px;
+    border-bottom: 1px solid var(--border-color);
+    background-color: #e5e7eb;
+    box-shadow: 0 10px 30px var(--shadow-color-light);
+    border-radius: 16px 16px 0 0;
+}
+.scheduler-nav-tabs .profile-nav-link {
+    background: none;
+    border: 1px solid transparent;
+    padding: 10px 26px;
+    min-width: auto;
+    justify-content: center;
+    box-shadow: none;
+    flex: 1;
+}
+.scheduler-nav-tabs .profile-nav-link.active {
+    background-color: var(--card-bg-color);
+    border-color: var(--border-color);
+}
+
+@media (max-width: 1024px) {
+    .scheduler-nav-tabs {
+        flex-direction: column;
+        margin: -20px -20px 16px;
+        padding: 16px 20px 18px;
+        background-color: #e5e7eb;
+    }
+    .scheduler-nav-tabs .profile-nav-link {
+        width: 100%;
+    }
+    .scheduler-form,
+    .scheduler-queue {
+        padding: 20px;
+    }
+}
+
+/* NOVO: Estilos das Abas (Fila / Histórico) */
+.scheduler-queue-tabs {
+    display: flex;
+    width: fit-content; /* Faz o container ocupar apenas o espaço das abas */
+    margin: 0 auto 20px auto; /* Centraliza horizontalmente e adiciona margem inferior */
+    /* --- FIM DA MODIFICAÇÃO --- */
+    
+    border-bottom: 1px solid var(--border-color);
+}
+.scheduler-tab {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+@keyframes schedulerTabFade {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Inputs e selects */
+.modal-input-group select,
+.modal-input-group input[type="date"],
+.modal-input-group input[type="time"],
+.scheduler-modal .modal-input-group input[type="text"] { /* <-- LINHA ADICIONADA */
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    background-color: var(--card-bg-color); /* Fundo branco no modo escuro */
+    color: var(--text-primary-color);
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Wrapper da lista para scroll */
+.queue-list-container {
+    flex-grow: 1; /* Ocupa o espaço restante */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    height: 350px;
+    max-height: 450px; 
+    overflow-y: auto;
+}
+
+#scheduler-queue-list,
+#scheduler-history-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Espaço entre os cards */
+}
+
+.queue-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border-radius: 8px; /* Cantos arredondados */
+    background-color: var(--card-bg-color);
+    box-shadow: 0 2px 5px var(--shadow-color-light);
+    transition: all 0.2s ease;
+    border: 1px solid var(--border-color);
+}
+.queue-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+.queue-item.empty {
+    justify-content: center;
+    color: var(--text-secondary-color);
+    font-style: italic;
+    padding: 20px;
+    background-color: transparent;
+    box-shadow: none;
+    border: 1px dashed var(--border-color);
+}
+
+.queue-item-icon {
+    font-size: 1.2rem;
+    margin-right: 15px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Cores dos ícones */
+.queue-item.pending .queue-item-icon { color: var(--text-secondary-color); }
+.queue-item.running .queue-item-icon { color: var(--accent-color); }
+.queue-item.done .queue-item-icon { color: #28a745; }
+.queue-item.failed .queue-item-icon { color: #dc3545; }
+
+.queue-item-details {
+    flex-grow: 1;
+    text-align: left;
+    line-height: 1.4;
+}
+.queue-item-details strong {
+    display: block;
+    color: var(--text-primary-color);
+    font-weight: 600;
+}
+.queue-item-details em {
+    font-size: 0.85rem;
+    color: var(--text-secondary-color);
+    font-style: normal;
+}
+
+.queue-item-task-icon {
+    height: 16px; /* Tamanho do ícone */
+    width: auto;
+    margin-right: 8px;
+    vertical-align: middle; /* Alinha com o texto */
+    position: relative;
+    top: -1px; /* Ajuste fino de alinhamento */
+}
+
+.queue-item-remove {
+    background: none;
+    border: none;
+    color: var(--text-secondary-color);
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-left: 10px;
+    padding: 5px;
+    line-height: 1;
+    opacity: 0.5;
+    transition: opacity 0.2s ease, color 0.2s ease;
+}
+.queue-item:hover .queue-item-remove {
+    opacity: 1;
+}
+.queue-item-remove:hover {
+    color: #dc3545;
+}
+/* --- NOVO: Estilo do Botão "Adicionar Conexão" --- */
+.modal-form .btn-save-conn {
+    width: 60%;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -5px; /* <--- VALOR REDUZIDO PARA DIMINUIR O ESPAÇO */
+
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+}
+.modal-form .btn-save-conn:hover {
+    background-color: var(--accent-color-hover);
+}
+/* --- NOVOS ESTILOS PARA SELEÇÃO DE TAREFA DO AGENDADOR (BOTÕES DE RÁDIO) --- */
+
+.scheduler-tasks-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espaço entre os botões */
+    margin-top: 10px;
+    width: 100%;
+    max-width: 360px;
+}
+.scheduler-task-selection-label {
+    padding-top: 10px;
+    padding-bottom: 15px;
+}
+/* Em: automacao.css (NOVO BLOCO) */
+
+/* --- ESTILO PARA O PLACEHOLDER INVISÍVEL (EVITAR PULO) --- */
+
+.scheduler-task-placeholder {
+    /* Copia o estilo do label para manter a altura (com padding e border) */
+    padding: 12px 15px; /* Altura do label + 2px da borda (10px + 2) */
+    border: 2px solid transparent; /* Bordas transparentes para manter o espaçamento */
+    border-radius: 8px;
+    
+    /* Garante invisibilidade e que não interfira no layout/clique */
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.scheduler-task-label {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: var(--card-bg-color);
+    color: var(--text-primary-color);
+    position: relative;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* Efeito de hover e check */
+.scheduler-task-label:hover {
+    border-color: var(--accent-color);
+    background-color: var(--bg-color);
+}
+.scheduler-task-label:has(input:checked) {
+    border-color: #28a745; /* Cor de sucesso para tarefa selecionada */
+    background-color: var(--bg-color);
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+}
+
+/* Esconde o rádio nativo */
+.scheduler-task-label input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+/* Em: automacao.css */
+
+/* --- NOVOS ESTILOS PARA IMAGENS NOS BOTÕES DE TAREFA DO AGENDADOR --- */
+
+.scheduler-task-label .scheduler-task-system-image {
+    height: 20px; /* Tamanho da logo */
+    width: auto;
+    margin-right: 15px;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+/* Opcional: Reintroduzir o estilo para ícones na fila/histórico (que usa a classe .queue-item-task-icon) */
+.queue-item-task-icon {
+    height: 16px; /* Tamanho do ícone */
+    width: auto;
+    margin-right: 8px;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+    /* Certifique-se de que o display: none da última vez foi removido */
+    display: inline-block; 
+}
+/* Em: automacao.css */
+
+/* --- ESTILOS PARA PAGINAÇÃO DE TAREFAS NO AGENDADOR --- */
+
+.task-pagination-controls {
+    /* Layout dos controles de paginação (centralizado) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0 5px 0;
+}
+
+.pagination-btn {
+    /* Botões de chevron */
+    background: none;
+    border: none;
+    color: var(--color-blue, #007bff); /* Cor de link/interação */
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background-color: var(--hover-bg-color, #f0f0f0);
+    border-radius: 4px;
+}
+
+.pagination-btn:disabled {
+    /* Botões inativos */
+    color: var(--text-muted-color, #aaa); 
+    cursor: not-allowed;
+}
+
+.page-info {
+    /* Texto "X de Y" */
+    margin: 0 15px;
+    font-size: 0.85rem;
+    color: var(--text-muted-color, #666);
+    font-weight: 500;
+}
+/* --- ESTILOS PARA ÍCONES NOS INPUTS DE DATA/HORA DO AGENDADOR --- */
+
+/* 1. O contêiner (wrapper) */
+.input-with-icon-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+/* 2. O ícone */
+.input-with-icon-wrapper .input-icon {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    color: var(--text-secondary-color);
+    cursor: pointer; /* <-- ADICIONE ESTA LINHA */
+    font-size: 0.9rem; /* Tamanho do ícone */
+    transition: color 0.2s ease; /* <-- ADICIONE (para o hover) */
+}
+/* ADICIONE esta regra de hover para o ícone */
+.input-with-icon-wrapper .input-icon:hover {
+    color: var(--accent-color);
+}
+
+/* 3. Ajuste do input (que está dentro do wrapper) para dar espaço ao ícone */
+.scheduler-modal .input-with-icon-wrapper input[type="text"] {
+    /* Adiciona espaço à direita para o ícone não sobrepor o texto */
+    padding-right: 35px; 
+    
+    /* Faz o texto começar alinhado à esquerda (caso tenha centralização em outro lugar) */
+    text-align: left;
+}
+/* --- ESTILO PARA O INPUT NATIVO (INVISÍVEL) --- */
+.scheduler-native-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    opacity: 0; /* Totalmente invisível */
+    pointer-events: none; /* Não pode ser clicado diretamente */
+}
+/* --- ESTILO PARA O NOME DO CRIADOR (AGENDADOR) --- */
+.queue-item-creator {
+    /* Alinhamento (para ocupar o espaço do 'X') */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centralizado */
+    margin-left: 10px; /* Espaço à esquerda */
+    padding: 5px;
+    
+    /* Largura - para evitar que nomes longos quebrem o layout */
+    min-width: 40px; 
+    max-width: 70px; /* Ajuste se os nomes forem muito longos */
+
+    /* Estilo (Req) */
+    color: var(--text-secondary-color); /* Cinza */
+    font-size: 0.9rem; /* Pequeno */
+    font-weight: 600;
+    line-height: 1;
+    
+    /* Truncamento (caso o nome seja muito longo) */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    /* Apenas para garantir alinhamento caso o card seja flex */
+    flex-shrink: 0;
+}
+/* --- AJUSTE DE EXIBIÇÃO DATA/HORA DO AGENDADOR --- */
+
+/* Nova regra para as linhas de Data e Hora */
+.queue-item-datetime {
+    display: block; /* Força quebra de linha */
+    font-size: 0.85rem;
+    color: var(--text-secondary-color);
+    font-style: normal;
+    line-height: 1.4; /* Espaçamento entre "Data:" e "Hora:" */
+}
+
+/* Ajuste de margem para o título da tarefa */
+.queue-item-details strong {
+    margin-bottom: 3px; /* Adiciona um pequeno espaço antes da Data */
+}
+/* --- (Req 1) NOVOS ESTILOS: Painel de Preview --- */
+#preview-panel { 
+    position: fixed; 
+    /* (Ajustado para a direita) */
+    right: 250px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    width: 350px; 
+    
+    background-color: var(--card-bg-color); 
+    border-radius: 16px; 
+    border: 1px solid var(--border-color); 
+    box-shadow: 0 8px 32px var(--shadow-color); 
+    padding: 20px; 
+    z-index: 100; 
+    opacity: 0; 
+    visibility: hidden; 
+    transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease, border-color 0.3s ease; 
+}
+#preview-panel.visible { 
+    opacity: 1; 
+    visibility: visible; 
+}
+#preview-image { 
+    width: 100%; 
+    height: auto; 
+    border-radius: 8px; 
+    margin-bottom: 15px; 
+    background-color: var(--bg-color); 
+}
+#preview-description { 
+    font-size: 0.9rem; 
+    color: var(--text-secondary-color); 
+    line-height: 1.5; 
+    margin: 0; 
+    text-align: left; 
+}
+#preview-tags-container { 
+    display: flex; 
+    gap: 8px; 
+    flex-wrap: wrap; 
+    margin-top: 15px; 
+}
+.preview-tag { 
+    padding: 4px 10px; 
+    border-radius: 12px; 
+    font-size: 0.75rem; 
+    font-weight: 600; 
+    border: 1px solid; 
+}
+.tag-orange { color: #c75c04; background-color: #fff3e0; border-color: #ffe0b2; }
+.tag-green { color: #2e7d32; background-color: #e8f5e9; border-color: #c8e6c9; }
+.tag-blue { color: #1565c0; background-color: #e3f2fd; border-color: #bbdefb; }
+.tag-gray { 
+    color: var(--text-tertiary-color); 
+    background-color: var(--bg-color); 
+    border-color: var(--border-color); 
+}
+.tag-purple { color: #5e35b1; background-color: #ede7f6; border-color: #d1c4e9; }
+@media (max-width: 768px) {
+    body {
+        /* Alinha com o padding-top do hub.html (mobile) */
+        padding-top: 120px; 
+    }
+    .container {
+        width: 100%; /* Ocupa a largura total */
+    }
+    .main-title {
+        font-size: 2.2rem;
+    }
+    .subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 40px;
+        margin-top: -20px; 
+    }
+    .task-button {
+        width: 100%; /* Botões ocupam 100% */
+    }
+    .task-button-group {
+        width: 100%;
+    }
+    /* Esconde o preview (não funciona em toque) */
+    #preview-panel {
+        display: none;
+    }
+
+    /* --- Correção Agendador (Req 7) --- */
+    #scheduler-modal-overlay .settings-modal {
+        width: 96vw;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+    }
+    .scheduler-body {
+        grid-template-columns: 1fr;
+        border: none;
+        overflow-y: auto;
+    }
+    .scheduler-form {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .queue-list-container {
+        /* Altura menor para caber na tela */
+        height: 250px;
+        max-height: 40vh;
+    }
+}
+/* --- Dark Mode Logo Swapping --- */
+.logo-light { display: none; }
+.logo-dark { display: none; }
+body:not(.theme-dark) .logo-light { 
+    display: inline-block; /* (Req 1) Correção: Permite ficar ao lado do texto */
+    vertical-align: middle; /* (Req 1) Alinha verticalmente com o texto */
+}
+body.theme-dark .logo-dark { 
+    display: inline-block; /* (Req 1) Correção: Permite ficar ao lado do texto */
+    vertical-align: middle; /* (Req 1) Alinha verticalmente com o texto */
+}
+
+/* (Fix for logos in flex containers) */
+.system-selector label,
+.scheduler-task-label {
+    /* Garante que o display:block do logo não quebre o layout */
+    display: inline-flex;
+    align-items: center;
+}
+.queue-item-details strong {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* (Fix for modal logo) */
+.modal-content .modal-logo.logo-dark {
+    display: none; 
+}
+body.theme-dark .modal-content .modal-logo.logo-dark {
+    /* (Req 1) MANTÉM O ALINHAMENTO CENTRAL */
+    display: inline-block; 
+}
+body:not(.theme-dark) .modal-content .modal-logo.logo-light {
+    /* (Req 1) MANTÉM O ALINHAMENTO CENTRAL */
+    display: inline-block; 
+}
+.nav-tab.disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.75;
+    background-color: rgba(15, 23, 42, 0.08);
+    color: var(--text-tertiary-color);
+    box-shadow: none;
+}
+
+body.theme-dark .nav-tab.disabled {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.7);
+    opacity: 0.65;
+}
+
+.nav-tab.disabled i {
+    filter: grayscale(100%);
+    color: inherit;
+}

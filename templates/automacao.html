@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Hub Dynamics - Automação</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css">
+    <link rel="stylesheet" href="/static/css/hub.css">
+    <link rel="stylesheet" href="/static/css/shared.css">
+    <link rel="stylesheet" href="/static/css/automacao.css">
+</head>
+<body data-active-area="{{ active_area | default('Spare Parts') }}">
+    <script>
+      // Script de carregamento instantâneo do tema (para evitar flicker)
+      (function() {
+        try {
+          const savedTheme = localStorage.getItem('hubTheme') || 'light';
+          if (savedTheme === 'dark') {
+            document.body.classList.add('theme-dark');
+          } else if (savedTheme === 'light') {
+            // Nenhuma classe necessária para o padrão 'light'
+          } else {
+            // Checa o tema do sistema
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+              document.body.classList.add('theme-dark');
+            }
+          }
+        } catch (e) {
+          // Ignora erros
+        }
+      })();
+    </script>
+    <script>
+        (function() {
+            try {
+                const storedUser = localStorage.getItem('hubUsername') || '_default';
+                const savedLanguage = localStorage.getItem(`hubLanguage_${storedUser}`) || localStorage.getItem('hubLanguage_default') || 'pt';
+                document.documentElement.setAttribute('lang', savedLanguage === 'en' ? 'en' : 'pt-br');
+                document.documentElement.dataset.hubLang = savedLanguage;
+            } catch (error) {
+                document.documentElement.setAttribute('lang', 'pt-br');
+            }
+        })();
+    </script>
+
+    <header class="internal-header">
+        <a href="/" class="internal-logo" title="Hub Dynamics">
+            <img src="/static/icones/hub_logo.png" alt="Hub Dynamics" class="logo-light">
+            <img src="/static/icones/hub_logo_branco.png" alt="Hub Dynamics" class="logo-dark">
+            <div class="internal-logo-text">
+                <span class="hub-area-label-text">Hub Spare Parts</span>
+                <small>Automações</small>
+            </div>
+        </a>
+        <div class="internal-header-tools">
+            <a href="/" class="header-icon-btn back-button" title="Voltar ao Hub"><i class="fas fa-home"></i></a>
+            <button id="scheduler-btn" class="header-icon-btn scheduler-button" title="Agendador"><i class="fas fa-clock"></i></button>
+            <button id="logout-btn" class="header-icon-btn logout-button hidden" title="Deslogar"><i class="fas fa-sign-out-alt"></i></button>
+            <div class="access-container">
+                <button id="access-btn" class="access-button" aria-label="Acesso" title="Acesso">
+                    <img id="profile-img" src="{{ profile_image or '/static/icones/default_profile.png' }}" alt="Perfil" class="profile-image-thumb">
+                </button>
+                <div class="access-dropdown" id="access-dropdown"></div>
+            </div>
+        </div>
+    </header>
+
+    <div id="status" class="status-box" aria-live="polite"></div>
+
+    <section class="internal-search-stack">
+        <div class="tabs-wrapper">
+            <div class="main-nav-tabs">
+                {% if role == 'Executor' %}
+                <a href="/automacao" class="nav-tab active" data-page="automacao" title="Automações">
+                    <i class="fas fa-robot"></i>
+                    <span>Automações</span>
+                </a>
+                {% else %}
+                <div class="nav-tab disabled" title="Acesso restrito a Executores">
+                    <i class="fas fa-robot"></i>
+                    <span>Automações</span>
+                </div>
+                {% endif %}
+
+                <a href="/dashboards" class="nav-tab" data-page="dashboards" title="Dashboards">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Dashboards</span>
+                </a>
+
+                {% if role == 'Executor' or role == 'Analista' %}
+                <a href="/drive" class="nav-tab" data-page="drive" title="Drive Online">
+                    <i class="fas fa-hdd"></i>
+                    <span>Drive Online</span>
+                </a>
+                {% else %}
+                <div class="nav-tab disabled" title="Faça login para acessar o Drive">
+                    <i class="fas fa-hdd"></i>
+                    <span>Drive Online</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="page-search-container">
+            <label for="automacao-search-input" class="visually-hidden">Buscar automação</label>
+            <i class="fas fa-search page-search-icon"></i>
+            <input type="text" id="automacao-search-input" class="page-search-input" placeholder="Buscar automação...">
+            <div class="page-search-shortcut-hint" aria-hidden="true">
+                <span class="shortcut-key">Ctrl</span>
+                <span class="shortcut-key">K</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        
+        <div class="system-selector">
+            <label>
+                <input type="radio" name="login_system" value="sap" checked>
+                <img src="/static/icones/sap_logo.png" alt="Logo SAP" class="logo-light">
+                <img src="/static/icones/sapblack_logo.png" alt="Logo SAP" class="logo-dark">
+            </label>
+            <label> <input type="radio" name="login_system" value="bw"> <img src="/static/icones/bwhana_logo.png" alt="Logo BW HANA"> </label>
+            <label> <input type="radio" name="login_system" value="salesforce"> <img src="/static/icones/salesforce_logo.png" alt="Logo Salesforce"> </label>
+        </div>
+
+        <div id="sap-tasks-section" class="tasks-section">
+    <div class="button-container">
+        {% for nome, config in macros.items() %}
+            {% if config.type == 'sap' %} 
+                {% if nome == "Base Mãe" %}
+                    <div class="task-button-group">
+                        <div class="task-button" 
+                             data-task-name="{{ nome }}" 
+                             data-task-type="sap"
+                             data-preview-gif="{{ config.gif | default('', true) }}"
+                             data-preview-text="{{ config.text | default('', true) }}"
+                             data-preview-tags="{{ config.tags | default('', true) }}">
+                            <div class="button-text">{{ nome }}</div>
+                        </div>
+                        {% if initial_zv62n_file %}
+                            <a href="/download/{{ initial_zv62n_file }}" class="task-button-download" title="Baixar {{ initial_zv62n_file }}">
+                                <i class="fas fa-file-arrow-down"></i>
+                            </a>
+                        {% else %}
+                            <a href="#" class="task-button-download inactive" title="Arquivo não encontrado.">
+                                <i class="fas fa-file-arrow-down"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="task-button" 
+                         data-task-name="{{ nome }}" 
+                         data-task-type="sap"
+                         data-preview-gif="{{ config.gif | default('', true) }}"
+                         data-preview-text="{{ config.text | default('', true) }}"
+                         data-preview-tags="{{ config.tags | default('', true) }}">
+                        <div class="button-text">{{ nome }}</div>
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+        
+        <div id="bw-tasks-section" class="tasks-section hidden">
+    <div class="button-container">
+        {% for nome, config in macros.items() %}
+            {% if config.type == 'bw' %} 
+                <div id="bw-extract-btn" 
+                     class="task-button" 
+                     data-task-name="{{ nome }}" 
+                     data-task-type="bw"
+                     data-preview-gif="{{ config.gif | default('', true) }}"
+                     data-preview-text="{{ config.text | default('', true) }}"
+                     data-preview-tags="{{ config.tags | default('', true) }}">
+                    <div class="button-text">{{ nome }}</div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+        <div id="salesforce-tasks-section" class="tasks-section hidden">
+    <div class="button-container">
+        {% for nome, config in macros.items() %}
+            {% if config.type == 'salesforce' %} 
+                <div class="task-button" 
+                     data-task-name="{{ nome }}" 
+                     data-task-type="salesforce"
+                     data-preview-gif="{{ config.gif | default('', true) }}"
+                     data-preview-text="{{ config.text | default('', true) }}"
+                     data-preview-tags="{{ config.tags | default('', true) }}">
+                    <div class="button-text">{{ nome }}</div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+    
+<div id="preview-panel">
+        <img id="preview-image" src="" alt="Preview da Automação">
+        <p id="preview-description"></p>
+        <div id="preview-tags-container"></div>
+    </div>
+
+    <div id="login-modal-overlay" class="modal-overlay">
+        <div class="modal-content">
+            <button id="login-modal-close-btn" class="modal-close" title="Fechar">&times;</button>
+            
+            <img id="modal-logo-sap-light" src="/static/icones/sap_logo.png" alt="Logo SAP" class="modal-logo logo-light hidden">
+            <img id="modal-logo-sap-dark" src="/static/icones/sapblack_logo.png" alt="Logo SAP" class="modal-logo logo-dark hidden">
+            <img id="modal-logo-bw" src="/static/icones/bwhana_logo.png" alt="Logo BW HANA" class="modal-logo hidden">
+            <img id="modal-logo-salesforce" src="/static/icones/salesforce_logo.png" alt="Logo Salesforce" class="modal-logo hidden">
+            
+            <p id="modal-subtitle">Insira suas credenciais para logar.</p>
+            <div class="modal-form">
+                <div class="modal-input-group">
+                    <label for="modal-user">Usuário:</label>
+                    <input type="text" id="modal-user">
+                </div>
+                <div class="modal-input-group">
+                    <label for="modal-pass">Senha:</label>
+                    <input type="password" id="modal-pass">
+                </div>
+                <button id="modal-execute-btn" class="button btn-execute">Logar</button>
+                
+                {% if is_hub_logged_in %}
+                <button id="modal-save-conn-btn" class="button btn-save-conn">Adicionar Conexão</button>
+                {% endif %}
+                </div>
+        </div>
+    </div>
+
+    <div id="confirm-modal-overlay" class="modal-overlay"> 
+        <div class="modal-content">
+                    <h2 id="confirm-modal-title">Deseja deslogar?</h2>
+            <div class="modal-button-container">
+                <button id="confirm-modal-no-btn" class="button btn-cancel">Não</button>
+                <button id="confirm-modal-yes-btn" class="button btn-danger">Sim</button>
+            </div>
+        </div>
+    </div>
+    
+    {% include 'partials/access_modals.html' %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+    <script src="/static/js/shared.js" defer></script>
+    <script src="/static/js/hub.js" defer></script>
+    <script src="/static/js/automacao.js" defer></script>
+</body>
+</html>

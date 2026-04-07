@@ -1,0 +1,4682 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600&display=swap');
+
+.admin-add-btn + .admin-cms-list {
+    margin-top: 12px;
+}
+
+.admin-panel-section > #admin-add-dashboard-btn,
+.admin-panel-section > #admin-add-automation-btn,
+.admin-panel-section > #admin-add-user-btn {
+    margin-bottom: 12px;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-color); /* MODIFICADO */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 40px;
+    min-height: 100vh;
+    margin: 0;
+    color: var(--text-primary-color); /* MODIFICADO */
+    box-sizing: border-box;
+    position: relative;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave */
+}
+
+.top-header {
+    width: 90%;
+    max-width: 1160px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    margin: 0 auto;
+    z-index: 10;
+    border-bottom: none;
+}
+
+.logo-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    color: var(--text-primary-color); /* MODIFICADO */
+    font-size: 2.3rem; /* Seu ajuste */
+}
+
+.logo-title img {
+    height: 36px; /* Seu ajuste */
+    vertical-align: middle;
+}
+
+/* --- ADICIONE ESTAS 3 REGRAS ABAIXO --- */
+
+/* 1. Esconde o logo claro por padrão */
+.logo-light {
+    display: none;
+}
+/* 2. Esconde o logo escuro por padrão */
+.logo-dark {
+    display: none;
+}
+
+/* 3. Mostra o logo claro SOMENTE se o body NÃO tiver .theme-dark */
+/* (O script inline no HTML garante que .theme-dark exista antes disto) */
+body:not(.theme-dark) .logo-light {
+    display: block;
+}
+
+/* 4. Mostra o logo escuro SOMENTE se o body TIVER .theme-dark */
+body.theme-dark .logo-dark {
+    display: block;
+}
+
+.header-tools,
+.internal-header-tools {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header-tools a,
+.header-tools button,
+.internal-header-tools a,
+.internal-header-tools button { /* MODIFICADO: Agora pode ser um botão */
+    font-size: 1.8rem; /* Seu ajuste */
+    color: var(--text-tertiary-color); /* MODIFICADO */
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+    /* NOVO: Estilo de botão transparente */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.header-tools a:hover,
+.header-tools button:hover,
+.internal-header-tools a:hover,
+.internal-header-tools button:hover {
+    color: var(--accent-color); /* MODIFICADO */
+    transform: scale(1.1);
+}
+
+.hub-container {
+    text-align: center;
+    width: 90%;
+    max-width: 1200px;
+    margin: 13px auto 0;
+}
+
+.hub-subtitle {
+    margin-bottom: 50px;
+    margin-top: 50px; /* <-- ADICIONE ESTA LINHA (Ajuste 30px se precisar de mais) */
+}
+.hub-subtitle p {
+    font-size: 1.2rem;
+    color: var(--text-secondary-color); /* MODIFICADO */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 0;
+}
+
+.search-container {
+    position: relative;
+    width: 100%;
+    max-width: 1160px;
+    margin: 20px auto 40px;
+    text-align: left;
+    padding-bottom: 5px;
+}
+.search-icon {
+    position: absolute;
+    left: 28px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary-color);
+    font-size: 1.2rem;
+}
+#search-bar {
+    width: 100%;
+    padding: 18px 120px 18px 70px;
+    font-size: 1.05rem;
+    border-radius: 18px;
+    border: 1px solid var(--border-color); /* MODIFICADO */
+    font-family: var(--font-body);
+    box-sizing: border-box;
+    /* NOVO: Cores do modo escuro */
+    background-color: var(--card-bg-color);
+    color: var(--text-primary-color);
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 12px 30px var(--shadow-color-light);
+}
+#search-bar::placeholder {
+    color: var(--text-secondary-color);
+}
+#search-bar:focus {
+    outline: none;
+    border-color: var(--accent-color); /* MODIFICADO */
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.2);
+}
+
+.search-shortcut-hint {
+    position: absolute;
+    right: 32px;
+    top: 52%;
+    transform: translateY(-60%);
+    display: flex;
+    gap: 6px;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary-color);
+    pointer-events: none;
+}
+
+.shortcut-key {
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    padding: 3px 8px;
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,0.1);
+    border: 1px solid var(--border-color);
+    font-size: 0.8rem;
+}
+
+.hub-cards {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+.hub-card {
+    background-color: var(--card-bg-color); /* MODIFICADO */
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px var(--shadow-color); /* MODIFICADO */
+    width: 360px;
+    height: 280px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease; /* MODIFICADO */
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.hub-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 16px 40px var(--shadow-color-hover); /* MODIFICADO */
+}
+.hub-card:focus-visible {
+    outline: none;
+    transform: translateY(-10px);
+    box-shadow: 0 0 0 4px rgba(0,123,255,0.5);
+}
+.card-media-area {
+    position: relative;
+    height: 150px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.card-content, .card-preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease;
+}
+.card-preview {
+    opacity: 0;
+    visibility: hidden;
+}
+.card-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.hub-card:hover .card-content {
+    opacity: 0;
+    visibility: hidden;
+}
+.hub-card:hover .card-preview {
+    opacity: 1;
+    visibility: visible;
+}
+.card-icon {
+    font-size: 3.5rem;
+    color: var(--accent-color); /* MODIFICADO */
+    margin-bottom: 15px;
+}
+.hub-card h2 {
+    font-size: 1.6rem;
+    margin: 0;
+    color: var(--text-primary-color); /* MODIFICADO */
+}
+.hub-card p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-secondary-color); /* MODIFICADO */
+    margin: 0;
+}
+
+.quick-links-section {
+    margin-top: 60px;
+    text-align: left;
+    max-width: 1160px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+.quick-links-section h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-tertiary-color); /* MODIFICADO */
+    border-bottom: 1px solid var(--border-color); /* MODIFICADO */
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+}
+.quick-links-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.quick-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: var(--card-bg-color); /* MODIFICADO */
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color); /* MODIFICADO */
+    text-decoration: none;
+    color: var(--text-primary-color); /* MODIFICADO */
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px var(--shadow-color-light); /* MODIFICADO */
+    position: relative; /* NOVO: Para posicionar o ícone de pin */
+    padding-right: 50px; /* NOVO: Espaço para o ícone de pin */
+}
+.quick-link:hover {
+    background-color: var(--bg-color); /* MODIFICADO */
+    border-color: var(--accent-color); /* MODIFICADO */
+    color: var(--accent-color); /* MODIFICADO */
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px var(--shadow-color); /* MODIFICADO */
+}
+.quick-link i {
+    color: var(--accent-color); /* MODIFICADO */
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+.no-recents {
+    color: var(--text-secondary-color); /* MODIFICADO */
+    font-style: italic;
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* ============================================= */
+/* ===== NOVOS ESTILOS (PIN E CONFIGURAÇÕES) ===== */
+/* ============================================= */
+
+/* --- Estilo do Ícone de Pin --- */
+.quick-link .pin-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: var(--text-secondary-color); /* Cor de pin "inativo" */
+    cursor: pointer;
+    padding: 5px; /* Área de clique maior */
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+.quick-link .pin-icon:hover {
+    color: var(--accent-color);
+    transform: translateY(-50%) scale(1.2);
+}
+.quick-link .pin-icon.pinned {
+    color: var(--accent-color); /* Cor de pin "ativo" */
+}
+
+/* --- Estilo do Modal de Configurações --- */
+.settings-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.settings-modal-overlay#admin-overlay {
+    z-index: 1400;
+}
+.settings-modal-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.settings-modal {
+    background-color: var(--card-bg-color);
+    width: 90%;
+    max-width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+.settings-modal-overlay.visible .settings-modal {
+    transform: scale(1);
+}
+
+#settings-overlay .hub-settings-modal {
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 12px 40px var(--shadow-color-hover);
+    padding: 0;
+    overflow: hidden;
+}
+
+.hub-settings-body {
+    padding: 25px 35px 10px;
+}
+
+#settings-overlay .hub-settings-body .setting-group:first-of-type {
+    padding-top: 0;
+    margin-top: 0;
+}
+
+#about-overlay .about-modal {
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 12px 40px var(--shadow-color-hover);
+    padding: 0;
+    overflow: hidden;
+}
+
+.about-modal-body {
+    padding: 30px 35px 25px;
+}
+
+.about-modal-footer {
+    justify-content: flex-end;
+}
+
+#connections-overlay .connections-modal {
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    box-shadow: 0 12px 40px var(--shadow-color-hover);
+    padding: 0;
+    overflow: hidden;
+    max-width: 420px;
+}
+
+.connections-modal-body {
+    padding: 25px 32px 20px;
+}
+
+.connections-modal-footer {
+    justify-content: flex-end;
+}
+
+.access-modal-panel {
+    max-width: 520px;
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    box-shadow: 0 12px 40px var(--shadow-color-hover);
+    padding: 0;
+    overflow: hidden;
+}
+
+.access-modal-body {
+    padding: 28px 34px 22px;
+}
+
+.access-modal-body #register-form .modal-input-group > label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.access-tabs-surface {
+    background-color: var(--bg-color);
+    padding: 18px 34px;
+    margin: -40px -34px 28px;
+    border-radius: 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.hub-login-modal {
+    max-width: 360px;
+}
+
+#hub-login-overlay .modal-input-group label {
+    padding-bottom: 30px;
+}
+
+.access-nav-tabs.profile-nav-tabs {
+    padding: 0;
+    border-bottom: none;
+    background: transparent;
+    margin: 0;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.access-nav-tabs .profile-nav-link {
+    border: none;
+    outline: none;
+}
+
+.access-nav-tabs .profile-nav-link {
+    min-width: 0;
+    padding: 10px 22px;
+}
+
+.access-tab-pane {
+    width: 100%;
+}
+
+.access-modal-footer {
+    padding: 18px 34px;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.access-modal-button {
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.93rem;
+    padding: 10px 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.access-close-btn {
+    background-color: #111;
+}
+
+.access-close-btn:hover {
+    background-color: #000;
+}
+
+.access-submit-btn {
+    background-color: var(--accent-color);
+}
+
+.access-submit-btn:hover {
+    background-color: var(--accent-color-hover, #0056c7);
+}
+
+.access-qr-card {
+    background: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    text-align: center;
+}
+
+.access-qr-card-header h4 {
+    margin: 4px 0;
+    font-size: 1.1rem;
+    margin-top: 20px;
+}
+
+.access-qr-title {
+    white-space: nowrap;
+}
+
+.access-qr-card-header p {
+    margin: 0;
+    color: var(--text-secondary-color);
+}
+
+.access-qr-kicker {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary-color);
+    margin: 0 0 16px;
+}
+
+.access-qr-card-body {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.access-qr-visual {
+    flex: 0 0 auto;
+    width: 190px;
+    height: 190px;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-color);
+    margin: 0 auto;
+}
+
+#register-qr-image {
+    max-width: 160px;
+    max-height: 160px;
+}
+
+.access-qr-details {
+    flex: 1;
+    min-width: 220px;
+    text-align: center;
+}
+
+.access-qr-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 10px 0 18px;
+    color: var(--text-secondary-color);
+    font-weight: 600;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.access-qr-divider::before,
+.access-qr-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border-color);
+}
+
+.access-qr-divider span {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+}
+
+.access-code-display {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 14px;
+}
+
+.access-code-char {
+    width: 42px;
+    height: 54px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    background: var(--bg-color);
+}
+
+.access-copy-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--accent-color);
+    color: #fff;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    margin: 0 auto;
+}
+
+.access-copy-button:hover {
+    background: var(--accent-color-hover, #0056c7);
+    transform: translateY(-1px);
+}
+
+.access-copy-button.copied {
+    background: #219653;
+}
+
+
+.access-code-input-group {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.access-otp-inputs {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+    justify-content: center;
+}
+
+.consult-code-input {
+    width: 48px;
+    height: 56px;
+    text-align: center;
+    border-radius: 14px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg-color);
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--text-primary-color);
+}
+
+.consult-code-input:focus {
+    outline: 2px solid var(--accent-color);
+    border-color: transparent;
+}
+
+.access-consult-btn {
+    margin: 26px auto 0;
+    display: block;
+}
+
+.consult-progress {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 24px;
+    margin: 30px auto 18px;
+    max-width: 520px;
+}
+
+.consult-progress-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+}
+
+.consult-progress-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--border-color);
+    background: transparent;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.consult-progress-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary-color);
+}
+
+.consult-progress-arrow {
+    font-size: 1.2rem;
+    color: var(--text-secondary-color);
+    user-select: none;
+}
+
+.consult-progress-item.is-pending .consult-progress-dot {
+    background: var(--border-color);
+    border-color: var(--border-color);
+}
+
+.consult-progress-item.is-complete .consult-progress-dot {
+    background: #1abc9c;
+    border-color: #1abc9c;
+}
+
+.consult-progress-item.is-complete .consult-progress-label {
+    color: #1abc9c;
+}
+
+.consult-progress-item.is-rejected .consult-progress-dot {
+    background: #e74c3c;
+    border-color: #e74c3c;
+}
+
+.consult-progress-item.is-rejected .consult-progress-label {
+    color: #e74c3c;
+}
+
+@media (max-width: 600px) {
+    .consult-progress {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .consult-progress-arrow {
+        transform: rotate(90deg);
+        margin: 0 auto;
+    }
+}
+
+.consult-justification-label {
+    font-weight: 700;
+}
+
+#consult-access-info {
+    margin-top: 22px;
+    border: 1px dashed var(--border-color);
+    border-radius: 14px;
+    padding: 18px 22px;
+    background: rgba(46, 204, 113, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+}
+
+.consult-access-status {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1abc9c;
+}
+
+.consult-access-guidance {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--text-secondary-color);
+}
+
+.consult-access-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 10px 14px;
+    gap: 16px;
+}
+
+body.theme-dark .consult-access-field {
+    background: #252525;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.consult-access-label {
+    font-weight: 300;
+    color: var(--text-primary-color);
+}
+
+body.theme-dark .consult-access-label {
+    color: #ffffff;
+}
+
+.consult-access-value {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.95rem;
+    color: var(--text-primary-color);
+}
+
+body.theme-dark .consult-access-value {
+    color: #ffffff;
+}
+
+.consult-access-guidance {
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: var(--text-secondary-color);
+}
+
+.consult-access-warning {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--text-secondary-color);
+}
+
+.consult-access-warning i {
+    font-size: 0.95rem;
+}
+
+#consult-rejected-info {
+    margin-top: 22px;
+    border: 1px dashed rgba(231, 76, 60, 0.5);
+    border-radius: 14px;
+    padding: 18px 22px;
+    background: rgba(231, 76, 60, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+
+.consult-rejected-status {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #e74c3c;
+}
+
+.consult-rejected-justification {
+    margin: 0;
+    font-size: 0.90rem;
+    color: var(--text-primary-color);
+    display: inline-flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+    .access-qr-card-body {
+        flex-direction: column;
+        align-items: center;
+    }
+    .access-otp-inputs {
+        gap: 6px;
+    }
+    .consult-code-input {
+        width: 42px;
+        height: 50px;
+    }
+}
+
+.settings-footer {
+    padding: 18px 35px;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    border-bottom: 1px solid var(--border-color);
+}
+.settings-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+    color: var(--text-primary-color);
+}
+.settings-close-btn {
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--text-secondary-color);
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+}
+.settings-close-btn:hover {
+    color: var(--text-primary-color);
+}
+
+.settings-body {
+    padding-top: 40px;
+    padding-bottom: 30px;
+    text-align: left;
+}
+#about-overlay .settings-body {
+    padding-left: 35px;
+    padding-right: 35px;
+    padding-top: 40px;
+}
+.setting-group {
+    padding-top: 20px;
+    margin-bottom: 35px;
+}
+/* =================================
+   ESTILOS APENAS DO MODAL "CONFIGURAÇÕES"
+   ================================= */
+
+.setting-group label {
+    font-weight: 600;
+    color: var(--text-primary-color);
+    display: block;
+    margin-bottom: 20px;
+    text-align: left; 
+
+    /* ADICIONADO: Afasta os títulos da borda APENAS no modal Configurações */
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
+/* --- Estilo do Seletor de Tema --- */
+.theme-selector {
+    display: flex;
+    gap: 15px;
+}
+.theme-selector.theme-selector-compact {
+    gap: 8px;
+    justify-content: center;
+}
+.theme-option {
+    min-width: 71px;
+    text-align: center;
+    padding: 10px 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+    color: var(--text-secondary-color);
+    margin: 0 8px;
+    width: 90px;
+}
+.theme-selector.theme-selector-compact .theme-option {
+    margin: 0 4px;
+    width: 71px;
+    padding: 8px 12px;
+}
+
+#settings-overlay .theme-selector {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    padding: 0 35px;
+}
+
+#settings-overlay .theme-option {
+    flex: 1 1 0;
+    margin: 0 6px;
+    width: auto;
+    max-width: none;
+}
+
+#settings-overlay .theme-option:first-child {
+    margin-left: 0;
+}
+
+#settings-overlay .theme-option:last-child {
+    margin-right: 0;
+}
+
+@media (max-width: 520px) {
+    #settings-overlay .theme-selector {
+        flex-wrap: wrap;
+        padding: 0 20px;
+    }
+    #settings-overlay .theme-option {
+        flex: 1 1 calc(50% - 8px);
+        margin-bottom: 10px;
+    }
+}
+
+.settings-modal > .setting-group.language-settings .language-selector {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 35px;
+    margin-top: 10px;
+}
+.settings-modal > .setting-group.language-settings select {
+    width: min(220px, 100%);
+    min-width: 160px;
+}
+#settings-overlay .language-settings .language-selector {
+    justify-content: flex-start;
+    padding-left: 35px;
+    padding-top: 5px;
+}
+
+#settings-overlay .language-settings select {
+    width: 220px;
+    min-width: 0;
+}
+.settings-language-hint {
+    padding-left: 35px;
+    padding-right: 35px;
+    margin: -12px 0 14px;
+}
+#settings-language-status.hub-form-status {
+    width: calc(63% - 70px);
+    margin-top: 20px;
+    margin-left: 35px;
+    margin-right: 35px;
+}
+.theme-option i {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 5px;
+}
+.theme-option.active {
+    border-color: var(--accent-color);
+    background-color: var(--bg-color);
+    color: var(--accent-color);
+}
+.theme-option:hover:not(.active) {
+    border-color: var(--text-tertiary-color);
+}
+
+/* ============================================= */
+/* ===== NOVOS ESTILOS (SOBRE E DEVLOG) ===== */
+/* ============================================= */
+.about-section {
+    margin-top: -20px;
+    margin-bottom: 30px;
+    text-align: left;
+    line-height: 1.6;
+}
+.about-section p {
+    margin: 5px 0;
+    margin-top: 15px;
+    text-align: center;
+    color: var(--text-primary-color);
+}
+.about-section ul {
+    list-style-type: none;
+    padding-left: 10px;
+    margin: 5px 0;
+    text-align: center;
+}
+.about-section a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+.about-section a:hover {
+    text-decoration: underline;
+}
+
+.devlog-container {
+    text-align: left;
+}
+/* Reutiliza o estilo do label das Configurações */
+.devlog-container label {
+    font-weight: 600;
+    color: var(--text-primary-color);
+    display: block;
+    margin-bottom: 10px;
+}
+.devlog-container ul {
+    list-style-type: none;
+    padding-left: 0;
+    /* Adiciona rolagem se a lista for muito longa */
+    max-height: 200px; 
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px;
+    background-color: var(--bg-color); /* Fundo sutil para a lista */
+}
+.devlog-container li {
+    font-size: 0.85rem;
+    color: var(--text-secondary-color);
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.devlog-container li:last-child {
+    border-bottom: none;
+}
+.devlog-container li strong {
+    color: var(--text-primary-color);
+    margin-right: 5px;
+}
+
+/* ============================================= */
+/* ===== NOVOS ESTILOS (CONFIG. ACESSO RÁPIDO) ===== */
+/* ============================================= */
+
+/* Isso centraliza os botões "Claro", "4 Itens", etc. */
+.theme-selector,
+.count-selector {
+    display: flex;
+    justify-content: center; /* <-- CORRETO */
+    flex-wrap: wrap;
+    /* REMOVA qualquer margem negativa daqui */
+}
+
+/* Estilo genérico para opções de configuração (copiado do .theme-option) */
+.setting-option {
+    /* flex: 1; <-- REMOVIDO */
+    min-width: 80px; /* Garante um tamanho mínimo */
+    text-align: center;
+    padding: 10px 15px; /* Padding horizontal maior para o texto */
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+    color: var(--text-secondary-color);
+    font-weight: 500;
+    margin: 0 8px; /* ANTES: gap: 20px. (Adiciona margem em vez de gap) */
+}
+.setting-option.active {
+    border-color: var(--accent-color);
+    background-color: var(--bg-color);
+    color: var(--accent-color);
+}
+.setting-option:hover:not(.active) {
+    border-color: var(--text-tertiary-color);
+}
+
+/* Estilo para o botão de "Limpar" */
+.button-danger {
+    background-color: transparent;
+    border: 1px solid #dc3545;
+    color: #dc3545;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+    /* --- CORREÇÃO APLICADA AQUI --- */
+    margin-top: 30px;
+    width: fit-content;
+
+    /* ADICIONE ESTAS DUAS LINHAS DE VOLTA */
+    margin-left: auto;   /* Centraliza o botão */
+    margin-right: auto; /* Centraliza o botão */
+}
+.button-danger:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+.settings-close-action {
+    background-color: #111;
+    border: 1px solid #111;
+    color: #fff;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: fit-content;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+.settings-close-action:hover {
+    background-color: #000;
+}
+
+/* --- ESTILOS DE BOTÃO PADRÃO (Importado de automacao.css) --- */
+.button {
+    border: none; 
+    padding: 12px 20px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-size: 15px; 
+    font-weight: 600; 
+    transition: all 0.2s ease;
+}
+
+/* Cores dos botões */
+.button.btn-execute, .button.btn-success {
+    background-color: #28a745; 
+    color: white;
+}
+.button.btn-execute:hover, .button.btn-success:hover {
+    background-color: #218838;
+}
+.button.btn-cancel {
+    background-color: var(--bg-color);
+    color: var(--text-secondary-color);
+    border: 1px solid var(--border-color);
+}
+.button.btn-cancel:hover {
+    background-color: var(--border-color);
+}
+/* Garante que o .btn-danger tenha fundo vermelho sólido */
+.button.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: 1px solid #dc3545;
+}
+.button.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #c82333;
+}
+
+.settings-modal-overlay#admin-overlay .button.btn-success {
+    background-color: #111;
+    border: 1px solid #000;
+    color: #fff;
+}
+.settings-modal-overlay#admin-overlay .button.btn-success:hover {
+    background-color: #000;
+    border-color: #000;
+}
+.settings-modal-overlay#admin-overlay .admin-reject-save-btn {
+    background-color: #111;
+    border: 1px solid #000;
+    color: #fff;
+}
+.settings-modal-overlay#admin-overlay .admin-reject-save-btn:hover {
+    background-color: #000;
+    border-color: #000;
+}
+
+/* ============================================= */
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 24px;
+    }
+    .top-header {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+    .logo-title {
+        font-size: 1.5rem;
+    }
+    .header-tools,
+    .internal-header-tools {
+        gap: 20px;
+        width: 100%;
+        justify-content: flex-start;
+    }
+    html, body {
+        overflow-x: hidden; /* (Req 2) Impede o scroll lateral na raiz */
+    }
+    .search-container {
+        margin: 30px 0;
+        max-width: 100%;
+    }
+    .quick-links-container {
+        gap: 15px;
+    }
+    .quick-link {
+        width: 100%;
+        justify-content: flex-start; /* Alinha o texto à esquerda */
+    }
+    .quick-links-section {
+        margin-top: 40px;
+    }
+
+    /* NOVO: Ajuste do modal em telas pequenas */
+    .settings-modal {
+        width: 95%;
+    }
+    .theme-selector {
+        /* Garante que eles tentem ficar na mesma linha */
+        flex-wrap: nowrap; 
+        gap: 8px; /* Espaço entre os botões */
+        padding-left: 20px; /* Alinha com o corpo do modal */
+        padding-right: 20px;
+    }
+    .theme-option {
+        flex: 1; /* Faz com que dividam o espaço igualmente */
+        min-width: auto; /* Remove a largura mínima do desktop */
+        padding: 8px 10px; /* Padding vertical e horizontal reduzidos */
+        margin: 0; /* Remove a margem individual */
+    }
+    .theme-option i {
+        font-size: 1.3rem; /* Ícone menor */
+        margin-bottom: 4px;
+    }
+    .theme-option span {
+        font-size: 0.8rem; /* Fonte do texto menor */
+    }
+    .hub-subtitle {
+        /* (Req 1) Aumenta a margem superior para distanciar da borda */
+        margin-top: 80px; 
+        margin-bottom: 30px;
+    }
+    .hub-subtitle p {
+        font-size: 1rem; /* Diminui a fonte do subtítulo */
+    }
+    .hub-card {
+        width: 100%; /* Cards ocupam a largura total */
+        height: auto; /* Altura automática */
+    }
+    .card-media-area {
+        height: 120px; /* Altura menor para o ícone/gif */
+    }
+
+    /* --- Correção Acesso Rápido (Req 1) --- */
+    .quick-links-section {
+        margin-bottom: 50px; /* Adiciona espaço no final da página */
+    }
+
+    /* --- Correção Profile Dropdown (Req 6) --- */
+    .access-dropdown {
+        position: fixed; /* Posição relativa à tela, não ao container */
+        left: 10%;
+        transform: translateX(-50%);
+        top: 135px; /* Posição abaixo do header mobile */
+        width: 40vw; /* Ocupa 90% da largura da tela */
+        min-width: 0;
+        z-index: 1100; /* Garante que fique acima de outros elementos */
+    }
+
+    /* --- Correção Modal de Admin (Req 5) --- */
+    .settings-modal {
+        width: 95vw; /* Modal ocupa 95% da tela */
+        max-height: 90vh; /* Limita a altura */
+        display: flex;
+        flex-direction: column;
+    }
+    .settings-modal .settings-body {
+        /* Permite que o corpo do modal role */
+        overflow-y: auto;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .settings-modal .scheduler-queue-tabs {
+        display: flex;
+        overflow-x: auto; /* Permite rolagem horizontal */
+        -webkit-overflow-scrolling: touch; /* Melhora a rolagem no iOS */
+
+        /* Esconde a barra de rolagem visualmente (mas mantém a função) */
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none;  /* IE/Edge */
+    }
+    .settings-modal .scheduler-queue-tabs::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+    }
+
+    .settings-modal .scheduler-queue-tabs .scheduler-tab {
+        /* Garante que o texto da aba (ex: "Solicitações") não quebre a linha */
+        white-space: nowrap;
+        flex-shrink: 0; /* Impede que a aba encolha */
+    }
+    /* Ajusta as colunas do form de usuário */
+    .admin-user-edit-form .scheduler-datetime-group {
+        flex-direction: column;
+        gap: 0;
+    }
+    /* Torna o container da lista rolável */
+    #admin-list-container,
+    #admin-user-list-container,
+    .admin-cms-list {
+        max-height: 60vh; /* Altura máxima da lista */
+    }
+    /* Quebra a linha de botões do admin */
+    .admin-request-main, /* <--- ADICIONE ESTA LINHA */
+    .admin-user-main,
+    .admin-cms-main { 
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    .admin-request-actions, /* <--- ADICIONE ESTA LINHA */
+    .admin-user-actions,
+    .admin-cms-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+    .admin-request-info,
+    .admin-user-info,
+    .admin-cms-info {
+        width: 100%; /* Garante que o bloco de texto ocupe toda a largura */
+        text-align: left; /* Garante que o texto dentro dele alinhe à esquerda */
+    }
+    /* Ajusta a barra de pesquisa do admin */
+    .admin-search-container {
+        flex-direction: column;
+        align-items: stretch;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .admin-search-container .button {
+        width: 100%;
+    }
+    .admin-search-input-wrapper {
+        max-width: none;
+    }
+}
+/* ============================================= */
+/* ===== NOVOS ESTILOS (ACESSO E CONEXÕES) ===== */
+/* ============================================= */
+
+/* Contêiner para o botão de Acesso e Dropdown */
+.access-container {
+    position: relative;
+}
+
+/* Botão de Acesso (copia o estilo dos outros botões do header) */
+.access-button {
+    font-size: 1.8rem;
+    color: var(--text-tertiary-color);
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 5px;
+}
+.access-button i.fa-user-check {
+    /* Ajusta o ícone se ele parecer desalinhado, movendo-o para a esquerda */
+    position: relative;
+    left: 5px; 
+}
+.access-button:hover {
+    color: var(--accent-color);
+    transform: scale(1.1);
+}
+
+/* Dropdown Menu */
+.access-dropdown {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    z-index: 1100;
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    min-width: 200px;
+    padding: 8px; /* <-- Verifique se está 5px */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    /* overflow: hidden; <-- REMOVA ou GARANTA que não está aqui */
+}
+.access-dropdown.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Em: hub.css */
+
+.access-dropdown-header {
+    padding: 10px 15px;
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+}
+.access-dropdown-header strong {
+    color: var(--text-primary-color);
+    font-size: 0.95rem;
+    
+    /* === NOVO: FORÇA TEXTO PARA MAIÚSCULAS === */
+    text-transform: uppercase;
+    /* ========================================= */
+}
+.access-dropdown-header span {
+    color: var(--text-secondary-color);
+    font-size: 0.8rem;
+    display: block;
+}
+#access-profile-btn {
+    margin-top: 8px; /* Ajuste este valor (ex: 5px, 10px, etc.) */
+}
+/* Em: hub.css */
+
+.access-dropdown .access-dropdown-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 12px 12px 12px 18px;
+    text-align: left;
+    border-left: 2px solid var(--border-color);
+    
+    /* REMOVENDO EFEITO DE BACKGROUND INDESEJADO */
+    background: none !important; /* Força que não tenha fundo */
+    
+    border: none;
+    font-size: 1rem;
+    color: var(--text-primary-color);
+    cursor: pointer;
+    box-sizing: border-box;
+    border-radius: 4px;
+
+    /* ANIMAÇÃO: Adiciona uma transição suave para escala/cor */
+    transition: color 0.2s ease, transform 0.2s ease; 
+}
+
+/* NOVO: Estilos ao passar o mouse */
+.access-dropdown .access-dropdown-item:hover {
+    /* MANTÉM: O aumento de escala para simular o "aumento da fonte" */
+    transform: scale(1.05); 
+    
+    /* AJUSTE: Mude a cor do texto/ícone para dar destaque, se desejar */
+    color: var(--accent-color); 
+    
+    /* REMOVIDO: background-color: var(--bg-color); */
+    background: none !important; /* Garante que o hover não aplique fundo */
+}
+
+/* NOVO: Aplica o mesmo hover aos elementos internos (ícone) */
+.access-dropdown .access-dropdown-item:hover i {
+    color: var(--accent-color);
+    transform: scale(1.1); /* Um aumento leve no ícone também */
+}
+.access-dropdown .access-dropdown-item i {
+    font-size: 0.9rem; /* <-- Ícone do mesmo tamanho da fonte */
+    margin-right: 10px;
+    width: 15px;
+    text-align: center;
+    color: var(--text-secondary-color);
+    flex-shrink: 0;
+}
+.access-dropdown .access-dropdown-item.danger {
+    color: #dc3545;
+}
+.access-dropdown .access-dropdown-item.danger i {
+    color: #dc3545;
+}
+
+/* Estilos para o Modal de Login do Hub */
+.hub-modal-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--text-primary-color);
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+.button-full-width {
+    width: 60%;
+    padding: 12px 20px;
+    display: block;        /* Garantir que se comporte como bloco (geralmente não é necessário em botões, mas é seguro) */
+    margin-left: auto;     /* Centraliza o botão */
+    margin-right: auto;    /* Centraliza o botão */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    background-color: var(--accent-color);
+    color: white;
+}
+.button-full-width:hover {
+    background-color: var(--accent-color-hover);
+}
+/* Em: hub.css */
+
+/* Ajusta a largura dos botões no Modal de Perfil */
+.profile-button {
+    width: 60% !important; 
+    max-width: 250px; 
+    margin: 10px auto !important; /* Centraliza */
+    display: block; /* Garante que margem auto funcione */
+}
+
+/* Modificação do botão de remover para alinhar */
+.button-danger.profile-button {
+    margin-top: 5px !important; 
+    margin-bottom: 5px !important;
+    width: 60% !important;
+}
+.hub-form-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    text-align: center;
+    white-space: pre-wrap; /* <-- ADICIONE ESTA LINHA */
+}
+.hub-form-error.hidden {
+    display: none;
+}
+
+/* Estilos para o Modal de Conexões */
+#connections-list-container {
+    padding: 15px 25px 25px;
+    text-align: left;
+}
+.connection-item {
+    display: flex;
+    align-items: center;
+    padding: 18px 0;
+    margin: 0;
+}
+.connection-item + .connection-item {
+    border-top: 1px solid var(--border-color);
+}
+.connection-icon {
+    height: 24px;
+    margin-right: 15px;
+}
+.connection-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column; /* Ícone em cima, texto embaixo */
+    justify-content: center;
+    align-items: flex-start; /* Alinha o Icone e o Texto à esquerda */
+    /* Removido o padding-top, pois o ícone está na coluna */
+}
+.connection-user-text {
+    /* Adiciona um espaço entre o ícone e o texto */
+    margin-top: 15px; 
+    font-size: 1rem;
+    line-height: 1.2;
+}
+.connection-details span {
+    font-size: 1rem;
+    line-height: 1.2;
+}
+.connection-details strong {
+    color:#5f5f5f;
+    font-size: 0.93rem;
+}
+.connection-details span {
+    color: var(--text-secondary-color);
+    font-size: 0.9rem;
+    display: block;
+}
+.connection-remove-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.2s ease;
+}
+.connection-remove-btn:hover {
+    color: #dc3545;
+}
+.no-connections {
+    text-align: center;
+    color: var(--text-secondary-color);
+    font-style: italic;
+    padding: 20px 0;
+}
+/* Em: hub.css */
+
+/* --- ESTILOS DE IMAGEM DE PERFIL --- */
+.profile-image-thumb {
+    width: 50px; /* Tamanho do thumb no header */
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border-color); /* Borda sutil */
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.access-button:hover .profile-image-thumb {
+    transform: scale(1.1); /* Animação no hover */
+    border-color: var(--accent-color);
+}
+/* Reajusta o padding do botão de acesso que era para o ícone */
+.access-button {
+    padding: 0;
+    margin-right: -1px; /* Mantém o deslocamento para a esquerda */
+    margin-top: 3px;
+}
+/* Oculta o ícone antigo de fa-user, já que agora usamos <img> */
+.access-button i {
+    display: none; 
+}
+
+
+/* --- ESTILOS DO MODAL DE PERFIL --- */
+.profile-preview-large {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 4px solid var(--border-color);
+    box-shadow: 0 4px 8px var(--shadow-color);
+}
+.profile-username-display {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary-color);
+    margin-top: 0;
+    margin-bottom: 25px;
+    text-transform: uppercase;
+}
+/* Estilo para o botão que se parece com label (Escolher Imagem) */
+.button-secondary {
+    background-color: var(--bg-color);
+    color: var(--text-tertiary-color);
+    border: 1px solid var(--border-color);
+}
+.button-secondary:hover {
+    background-color: var(--border-color);
+}
+/* Em: hub.css (Adicione ao final, por exemplo) */
+
+/* --- ESTILOS DO MODAL DE RECORTE --- */
+
+.cropper-container {
+    max-height: 400px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background-color: var(--bg-color); /* Fundo sutil */
+}
+/* O Cropper.js já aplica estilos complexos, mas precisamos garantir o tamanho do container */
+.cropper-container img {
+    display: block;
+    max-width: 100%;
+}
+/* --- ESTILOS DO MODAL DE REGISTRO E ADMIN --- */
+
+/* Reutiliza o estilo das abas do agendador */
+.scheduler-queue-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+.scheduler-tab {
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-secondary-color);
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px; /* Alinha com a borda */
+}
+.scheduler-tab:hover {
+    color: var(--text-primary-color);
+}
+.scheduler-tab.active {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+}
+.settings-modal .hub-modal-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--text-primary-color);
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    font-family: var(--font-body);
+    -webkit-appearance: none;
+    appearance: none;
+}
+/* Garante que o select no modal de registro se pareça com o input */
+.settings-modal select.hub-modal-input {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+}
+.settings-modal .scheduler-datetime-group {
+    display: flex;
+    gap: 10px;
+}
+.settings-modal .scheduler-datetime-group .modal-input-group {
+    flex: 1;
+}
+
+
+.consult-status-box.pending {
+    background-color: var(--bg-color);
+    color: var(--text-tertiary-color);
+    border: 1px solid var(--border-color);
+}
+.consult-status-box.approved {
+    background-color: #d4edda;
+    color: #155724;
+}
+.consult-status-box.rejected {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+/* --- ESTILOS DO MODAL DE ADMIN (REVISÃO COMPLETA) --- */
+
+/* Layout principal inspirado no modal "Minha Conta" */
+.admin-modal {
+    padding: 0;
+    background: transparent;
+    max-width: 960px !important;
+}
+
+.admin-modal-grid {
+    display: flex;
+    background: transparent;
+    border-radius: 32px;
+    overflow: hidden;
+    min-height: 560px;
+}
+
+.admin-sidebar {
+    width: 180px;
+    background: var(--bg-color);
+    border-right: 1px solid var(--border-color);
+    padding: 28px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.admin-sidebar-header {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.admin-sidebar-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 16px;
+    background: var(--card-bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    box-shadow: inset 0 0 0 1px var(--border-color);
+}
+
+.admin-sidebar-header p {
+    margin: 0;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--text-tertiary-color);
+}
+
+.admin-sidebar-header span {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary-color);
+}
+
+.admin-sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.admin-sidebar-nav.scheduler-queue-tabs {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.admin-sidebar-nav .scheduler-tab {
+    border: none;
+    background: transparent;
+    color: var(--text-secondary-color);
+    font-weight: 600;
+    border-radius: 16px;
+    padding: 12px 16px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-sidebar-nav .scheduler-tab:hover {
+    color: var(--text-primary-color);
+}
+
+.admin-sidebar-nav .scheduler-tab i {
+    font-size: 1rem;
+}
+
+.admin-tab-badge {
+    margin-left: auto;
+    background: var(--accent-color);
+    color: #fff;
+    padding: 1px 6px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    min-width: 20px;
+    text-align: center;
+}
+
+.admin-sidebar-nav .scheduler-tab.active {
+    background: var(--card-bg-color);
+    color: var(--text-primary-color);
+    box-shadow: inset 0 0 0 1px var(--border-color);
+}
+
+.admin-sidebar-note {
+    font-size: 0.85rem;
+    color: var(--text-secondary-color);
+    line-height: 1.4;
+}
+
+.admin-sidebar-footer {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+.admin-panel {
+    flex: 1;
+    background: var(--card-bg-color);
+    padding: 48px 56px;
+}
+
+.admin-panel-card {
+    background: transparent;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+.admin-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 12px;
+}
+
+.admin-panel-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: var(--text-primary-color);
+}
+
+.admin-panel-header p {
+    margin: 4px 0 0;
+    color: var(--text-secondary-color);
+    font-size: 0.95rem;
+}
+
+.admin-panel-body {
+    flex: 1;
+    padding: 32px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.admin-panel-section {
+    flex: 1;
+}
+
+.admin-panel-surface {
+    background: transparent;
+    border-radius: 0;
+    border: none;
+    padding: 0;
+    min-height: 320px;
+}
+
+
+.admin-close-btn {
+    border: none;
+    width: auto;
+    min-width: 0;
+    padding: 10px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    background-color: #0f0f0f;
+    color: #fff;
+    box-shadow: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.admin-close-btn:hover {
+    background-color: #1b1b1b;
+}
+
+.admin-add-btn {
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-primary-color);
+    border-radius: 16px;
+    padding: 10px 18px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.admin-panel-section > .admin-add-btn {
+    margin: 12px 0 18px;
+}
+
+.admin-add-btn i {
+    font-size: 0.85rem;
+    margin-right: 6px;
+}
+
+.admin-add-btn:hover {
+    background: var(--card-bg-color);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.admin-footer-hint {
+    font-size: 0.85rem;
+    color: var(--text-secondary-color);
+}
+
+@media (max-width: 1024px) {
+    .admin-modal-grid {
+        flex-direction: column;
+    }
+    .admin-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        border-radius: 32px 32px 0 0;
+    }
+    .admin-panel {
+        padding: 32px;
+    }
+    .admin-panel-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .admin-panel-header .admin-search-container {
+        width: 100%;
+        justify-content: stretch;
+    }
+    .admin-panel-header .admin-search-container.users-active {
+        width: 100%;
+        justify-content: stretch;
+    }
+}
+
+@media (max-width: 640px) {
+    .admin-sidebar-nav .scheduler-tab {
+        font-size: 0.95rem;
+    }
+    .admin-panel {
+        padding: 24px;
+    }
+    .admin-panel-body {
+        padding: 24px 0;
+    }
+}
+
+#admin-list-container {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#admin-requests-tab {
+    max-height: 52vh;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.admin-request-card {
+    display: flex;
+    flex-direction: column; /* Empilha a info e o form de rejeição */
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--card-bg-color);
+    box-shadow: 0 4px 12px var(--shadow-color-light);
+    border: 1px solid var(--border-color);
+}
+
+/* Container principal (Info + Botões de Ação) */
+.admin-request-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.admin-request-info {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.admin-request-info .username {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary-color);
+    margin-bottom: 2px;
+}
+
+.admin-request-info .details {
+    font-size: 0.9rem;
+    color: var(--text-secondary-color);
+    line-height: 1.5;
+}
+.admin-request-info .details strong {
+    color: var(--text-tertiary-color); /* Um pouco mais escuro que o texto secundário */
+}
+
+.admin-request-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0; /* Impede que os botões encolham */
+    align-items: center;
+}
+
+/* Botões de ação do Admin (usando classes de botão existentes) */
+.admin-request-actions .button {
+    border: none; /* Garante que não tenha borda */
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    min-width: 100px; /* Largura mínima para os botões */
+    text-align: center;
+}
+
+.admin-justification-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--text-primary-color);
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+    resize: vertical;
+    min-height: 60px;
+}
+
+.admin-justification-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end; /* Alinha os botões Salvar/Cancelar à direita */
+    gap: 10px;
+}
+
+.admin-justification-actions .button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    border: none;
+}
+.admin-justification-actions .button.btn-cancel {
+    background-color: var(--bg-color);
+    color: var(--text-secondary-color);
+    border: 1px solid var(--border-color);
+}
+
+.no-requests {
+    text-align: center;
+    color: var(--text-secondary-color);
+    font-style: italic;
+    padding: 40px 20px;
+    background-color: var(--card-bg-color);
+    border-radius: 10px;
+}
+/* --- CORREÇÃO: Classe de utilidade .hidden --- */
+.hidden {
+    display: none !important;
+}
+.admin-justification-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--text-primary-color);
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+/* Centraliza o texto de Justificativa */
+#consult-justification {
+    text-align: center;
+}
+/* --- AJUSTE DE LARGURA PARA O ERRO DE CONSULTA DE TOKEN --- */
+#consult-status-error {
+    width: 75%; /* Define a largura (ex: 80% do contêiner) */
+    
+    /* Centraliza o bloco do erro */
+    margin-left: auto;
+    margin-right: auto;
+    
+    /* Garante que o texto dentro dele também esteja centralizado */
+    text-align: center; 
+}
+/* --- AJUSTE DE LARGURA DO ERRO DE REGISTRO --- */
+
+#register-status.hub-form-error {
+    width: 90%; /* Define a largura para 80% (ou o valor que preferir) */
+    margin-left: auto; /* Centraliza o elemento */
+    margin-right: auto; /* Centraliza o elemento */
+    margin-top: 15px; /* Mantém o espaçamento superior */
+    box-sizing: border-box; /* Garante que o padding não quebre o layout */
+}
+/* Adiciona margem acima da seção "Defina sua nova senha" no modal de Registro */
+#consult-new-password-section {
+    margin-top: 25px; /* Ajuste este valor (ex: 20px, 30px) como preferir */
+}
+/* --- CORREÇÃO: Efeitos :hover para os botões do modal Admin --- */
+
+/* 1. Garante que TODOS os botões no modal admin tenham a transição */
+.admin-request-actions .button,
+.admin-justification-actions .button {
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* 2. Hover do "Aprovar" (btn-execute/btn-success) */
+.admin-request-actions .button.btn-execute:hover,
+.admin-request-actions .button.btn-success:hover {
+    background-color: #218838;
+}
+
+/* 3. Hover do "Reprovar" e "Confirmar" (btn-danger) */
+.admin-request-actions .button.btn-danger:hover,
+.admin-justification-actions .button.btn-danger:hover {
+    background-color: #92111e;
+}
+
+/* 4. Hover do "Cancelar" (btn-cancel) */
+.admin-justification-actions .button.btn-cancel:hover {
+    background-color: var(--border-color);
+}
+/* --- NOVOS ESTILOS: ADMIN - GERENCIAR USUÁRIOS --- */
+
+/* Ajusta o padding da lista de usuários */
+#admin-users-tab #admin-user-list-container {
+    max-height: 43vh;
+    overflow-y: auto;
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Card de Usuário (Copiado do admin-request-card) */
+.admin-user-card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--card-bg-color);
+    box-shadow: 0 4px 12px var(--shadow-color-light);
+    border: 1px solid var(--border-color);
+}
+
+.admin-user-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+.admin-user-info .username {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary-color);
+    margin-bottom: 2px;
+    text-transform: uppercase; /* Nome de usuário sempre maiúsculo */
+}
+.admin-user-info .details {
+    font-size: 0.9rem;
+    color: var(--text-secondary-color);
+    line-height: 1.5;
+}
+.admin-user-info .details strong {
+    color: var(--text-tertiary-color);
+}
+.admin-user-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+.admin-user-actions .button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    min-width: 90px;
+    text-align: center;
+}
+
+/* Formulário de Edição (Oculto por padrão) */
+
+.admin-user-edit-form .modal-input-group {
+    margin-bottom: 15px;
+}
+.admin-user-edit-form .modal-input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--text-tertiary-color);
+    padding-left: 0; /* Reseta o padding de .setting-group label */
+}
+
+/* Inputs e Selects dentro do Card de Edição */
+.admin-user-edit-form .hub-modal-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--text-primary-color);
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 0.9rem;
+}
+.admin-user-edit-form select.hub-modal-input {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+}
+
+.admin-user-edit-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+.admin-user-edit-actions .button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+}
+/* Hover do "Editar" (btn-warning) */
+.admin-user-actions .button.btn-warning:hover,
+.admin-cms-actions .button.btn-warning:hover {
+    background-color: var(--border-color);
+}
+
+/* Hover do "Excluir" (btn-danger) - Garante a especificidade */
+.admin-user-actions .button.btn-danger:hover,
+.admin-cms-actions .button.btn-danger:hover {
+    background-color: #9b1b28; /* Vermelho mais escuro */
+    border-color: #9b1b28;
+}
+/* --- ESTILOS PARA O ÍCONE DE SENHA (ADMIN) --- */
+.password-toggle-wrapper {
+    position: relative;
+}
+
+/* Ajusta o input de senha para ter espaço para o ícone */
+.password-toggle-wrapper .hub-modal-input {
+    /* (Req 3) Adiciona padding à direita para o ícone */
+    padding-right: 40px !important; 
+}
+
+.admin-password-toggle-btn {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    color: var(--text-secondary-color);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: color 0.2s ease;
+}
+.admin-password-toggle-btn:hover {
+    color: var(--accent-color);
+}
+/* --- ESTILO PARA CARDS DESABILITADOS (Faça login...) --- */
+
+.hub-card.disabled {
+    /* Remove interatividade */
+    pointer-events: none;
+    user-select: none;
+    
+    /* Estilo Cinza (Grayscale) */
+    filter: grayscale(90%);
+    opacity: 0.7;
+    
+    /* Garante que a descrição (o <p>) também fique cinza */
+    color: var(--text-secondary-color);
+}
+
+/* Sobrescreve o efeito de hover (removendo o :hover) */
+.hub-card.disabled:hover {
+    transform: none;
+    box-shadow: 0 8px 32px var(--shadow-color); /* Retorna a sombra padrão */
+}
+
+/* Garante que o ícone também fique na cor secundária (cinza) */
+.hub-card.disabled .card-icon {
+    color: var(--text-secondary-color);
+}
+
+/* Garante que o texto descritivo (Faça login...) esteja visível */
+.hub-card.disabled p {
+    margin-top: 0;
+    color: var(--text-secondary-color);
+    font-style: italic; /* Opcional, mas dá ênfase */
+}
+/* --- ESTILOS PARA DETALHES (ROLE/AREA) NO MODAL DE PERFIL --- */
+
+.profile-user-details {
+    font-size: 0.95rem; /* Tamanho menor que o nome */
+    font-weight: 500;
+    color: var(--text-secondary-color); /* Cor de texto secundária (cinza) */
+    
+    /* Ajuste de espaçamento (puxa para perto do nome, afasta do formulário) */
+    margin-top: -20px; 
+    margin-bottom: 30px;
+}
+/* --- NOVOS ESTILOS: ADMIN - CMS EDITORES JSON --- */
+
+.admin-json-editor {
+    width: 100%;
+    min-height: 400px; /* Altura grande */
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--text-primary-color);
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 0.85rem; /* Fonte pequena para código */
+    font-family: 'Courier New', Courier, monospace;
+    resize: vertical;
+    padding: 10px;
+    margin-top: 10px;
+}
+/* --- NOVOS ESTILOS: ADMIN - CMS (Dashboards & Automações) --- */
+
+/* Contêiner da lista */
+.admin-cms-list {
+    max-height: 42vh;
+    overflow-y: auto;
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Card de Item (Dashboard ou Automação) */
+.admin-cms-card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--card-bg-color);
+    box-shadow: 0 4px 12px var(--shadow-color-light);
+    border: 1px solid var(--border-color);
+}
+
+.admin-cms-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.admin-cms-info .name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary-color);
+    margin-bottom: 2px;
+}
+.admin-cms-info .details {
+    font-size: 0.85rem;
+    color: var(--text-secondary-color);
+    line-height: 1.5;
+    word-break: break-all; /* Quebra URLs longas */
+}
+.admin-cms-info .details strong {
+    color: var(--text-tertiary-color);
+}
+
+.admin-cms-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+.admin-cms-actions .button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    min-width: 90px;
+    text-align: center;
+}
+
+/* Formulário de Edição (Oculto) */
+.admin-cms-edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.admin-cms-edit-form .modal-input-group {
+    margin-bottom: 0; /* Remove margem dupla */
+}
+.admin-cms-edit-form .modal-input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--text-tertiary-color);
+    padding-left: 0; /* Reseta padding */
+}
+/* Inputs e Selects */
+.admin-cms-edit-form .hub-modal-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--text-primary-color);
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 0.9rem;
+}
+.admin-cms-edit-form select.hub-modal-input {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+}
+.admin-cms-edit-form textarea.hub-modal-input {
+    min-height: 80px;
+    font-family: var(--font-body);
+    resize: vertical;
+}
+
+.admin-cms-edit-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+.admin-cms-edit-actions .button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+}
+/* Novo container para os botões de mover */
+.admin-cms-actions {
+    gap: 10px;
+    align-items: center;
+}
+
+.admin-drag-handle {
+    border: none;
+    background: transparent;
+    color: var(--text-secondary-color);
+    cursor: grab;
+    padding: 6px 10px;
+    border-radius: 12px;
+    transition: color 0.2s ease, background 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.admin-drag-handle:hover {
+    color: var(--accent-color);
+    background: var(--card-bg-color);
+}
+
+.admin-drag-handle:active {
+    cursor: grabbing;
+    color: var(--accent-color);
+}
+
+.admin-cms-card.dragging {
+    opacity: 0.6;
+}
+
+/* --- Toggle "Dashboard Geral" --- */
+.admin-toggle-group {
+    padding: 8px 0;
+}
+.admin-toggle-label {
+    display: inline-flex !important;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    color: var(--text-primary-color);
+}
+.admin-toggle-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent-color);
+    cursor: pointer;
+}
+.admin-toggle-hint {
+    display: block;
+    margin-top: 4px;
+    font-size: 0.8rem;
+    color: var(--text-tertiary-color);
+}
+.admin-badge-general {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    background-color: var(--accent-color);
+    color: #fff;
+    padding: 2px 7px;
+    border-radius: 10px;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
+/* --- NOVOS ESTILOS: Barra de Pesquisa Admin (Layout do Hub) --- */
+.admin-search-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+    padding: 0;
+    background-color: transparent;
+}
+/* (Req 2) Wrapper para o Input e Ícone */
+.admin-search-input-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 440px;
+    flex-shrink: 1;
+}
+
+.admin-search-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary-color);
+    z-index: 1;
+}
+
+.admin-search-input {
+    width: 100%; /* Ocupa 100% do wrapper */
+    padding: 12px 20px 12px 50px;
+    font-size: 1rem;
+    border-radius: 25px;
+    border: 1px solid var(--border-color);
+    font-family: var(--font-body);
+    box-sizing: border-box;
+    background-color: var(--card-bg-color);
+    color: var(--text-primary-color);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+}
+
+.admin-search-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.2);
+    background-color: var(--card-bg-color);
+}
+
+/* (Req 2) Estiliza os botões "Adicionar" quando movidos */
+.admin-search-container .admin-add-btn {
+    flex-shrink: 0;
+    margin: 0 0 12px 0;
+    display: none;
+    min-width: 50px;
+    max-width: 110px;
+    justify-content: center;
+    height: 36px;
+    padding: 0 14px;
+    font-size: 0.78rem;
+}
+
+/* Mensagem de "Nenhum resultado" (oculta por padrão) */
+.no-results-message {
+    display: none;
+    text-align: center;
+    color: var(--text-secondary-color);
+    font-style: italic;
+    padding: 40px 20px;
+    background-color: var(--card-bg-color);
+    border-radius: 10px;
+}
+
+/* Wrapper dos filtros admin (Área / Plataforma) */
+.admin-filter-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 0 1 auto;
+    min-width: 0;
+}
+.admin-filter-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: var(--text-secondary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding-left: 8px;
+}
+.admin-area-filter {
+    padding: 6px 10px 6px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg-color);
+    color: var(--text-primary-color);
+    font-size: 0.78rem;
+    font-family: var(--font-body);
+    cursor: pointer;
+    height: 36px;
+    transition: border-color 0.2s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+}
+
+/* Layout para abas com filtro de área (Dashboards/Automações) */
+.admin-search-container.has-area-filter {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.admin-search-container.has-area-filter .admin-filter-wrapper {
+    order: 1;
+    flex: 0 1 auto;
+    min-width: 90px;
+}
+.admin-search-container.has-area-filter .admin-add-btn {
+    order: 2;
+    align-self: flex-end;
+    margin-top: 0;
+}
+.admin-search-container.has-area-filter #admin-search-input-wrapper {
+    order: 3;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 0;
+    flex-basis: 100%;
+}
+.admin-area-filter:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+/* --- Estilo para o botão "Adicionar Usuário" (Req 1) --- */
+/* (Garante que ele fique oculto por padrão, como os outros) */
+#admin-add-user-btn {
+    display: none;
+    flex-shrink: 0;
+}
+
+/* (Req 1) Quando a aba Usuários estiver ativa */
+.admin-search-container.users-active {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.admin-search-container.users-active .admin-filter-wrapper {
+    order: 1;
+    flex: 0 1 auto;
+    min-width: 90px;
+}
+.admin-search-container.users-active #admin-add-user-btn {
+    display: block;
+    order: 2;
+    align-self: flex-end;
+    margin-top: 0;
+}
+.admin-search-container.users-active #admin-search-input-wrapper {
+    order: 3;
+    width: 100%;
+    max-width: 100%;
+    margin-top: 0;
+    flex-basis: 100%;
+}
+/* Estilo para o status "(Bloqueado)" */
+.admin-user-info .username .user-status-locked {
+    color: #dc3545; /* Vermelho */
+    font-size: 0.9rem;
+    font-weight: 500;
+    font-style: italic;
+    margin-left: 8px;
+}
+
+/* Estilo para o botão "Desbloquear" */
+.admin-user-actions .btn-unlock {
+    /* Cor azul (padrão) */
+    background-color: var(--accent-color); 
+    color: white;
+    border: 1px solid var(--accent-color);
+}
+
+.admin-user-actions .btn-unlock:hover {
+    background-color: var(--accent-color-hover);
+    border-color: var(--accent-color-hover);
+}
+
+/* Ajuste de gap para caber os botões */
+.admin-user-actions {
+    gap: 8px; 
+    flex-wrap: nowrap; /* Impede que os botões quebrem a linha */
+}
+/* --- CÓDIGO ADICIONADO: Estilos da Busca Universal Dropdown --- */
+
+.search-dropdown {
+    position: absolute;
+    top: calc(100% + 16px);
+    left: 0;
+    right: 0;
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 26px;
+    box-shadow: 0 25px 60px rgba(15, 23, 42, 0.18);
+    z-index: 1000;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
+}
+
+.search-dropdown.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.search-dropdown-body {
+    max-height: 360px;
+    overflow-y: auto;
+    padding-right: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.search-dropdown-footer {
+    display: flex;
+    justify-content: flex-start;
+    gap: 24px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 16px;
+    flex-wrap: wrap;
+}
+
+.shortcut-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary-color);
+    font-size: 0.85rem;
+}
+
+.shortcut-item .shortcut-key {
+    padding: 4px 10px;
+    font-size: 0.75rem;
+}
+
+.shortcut-label {
+    font-weight: 600;
+}
+
+/* Estilo para cada item de resultado */
+.search-result-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 14px 18px;
+    text-decoration: none;
+    color: var(--text-primary-color);
+    border-radius: 14px;
+    border: 1px solid transparent;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    text-align: left; /* Alinha o texto à esquerda */
+}
+
+.search-result-item:hover {
+    background-color: var(--bg-color);
+    border-color: var(--border-color);
+}
+
+.search-result-item i {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background-color: var(--bg-color);
+    color: var(--accent-color);
+    font-size: 1.1rem;
+}
+
+.search-result-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.search-result-title {
+    font-weight: 600;
+    font-size: 0.98rem;
+}
+
+.search-result-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary-color);
+    display: block;
+    line-height: 1.2;
+}
+
+.search-result-tag {
+    background-color: var(--bg-color);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary-color);
+}
+
+/* Mensagem de "nenhum resultado" */
+.search-dropdown .no-results {
+    padding: 12px 0;
+    color: var(--text-secondary-color);
+    text-align: center;
+    font-style: italic;
+}
+/* 1. A barra de rolagem completa (define a LARGURA/ESPESSURA) */
+.search-dropdown::-webkit-scrollbar {
+    width: 12px; /* Altere este valor (ex: 8px, 12px) para a espessura desejada */
+}
+
+/* 2. O "trilho" (o fundo por onde a barra corre) */
+.search-dropdown::-webkit-scrollbar-track {
+    background: var(--bg-color); /* Fundo claro/escuro */
+    border-radius: 10px; /* Arredonda o trilho */
+}
+
+/* 3. O "polegar" (a parte que você arrasta) */
+.search-dropdown::-webkit-scrollbar-thumb {
+    background-color: var(--text-secondary-color); /* Cor principal da barra */
+    border-radius: 10px;
+    border: 2px solid var(--bg-color); /* Cria um "espaçamento" elegante ao redor da barra */
+}
+
+/* 4. O "polegar" ao passar o mouse */
+.search-dropdown::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-tertiary-color);
+}
+/* (Este é o seu estilo existente para os outros ícones) */
+.connection-icon {
+    height: 24px;
+    margin-right: 15px;
+}
+
+/* --- ADICIONE ESTE NOVO BLOCO --- */
+/* (Estilo específico para o ícone do Salesforce) */
+.connection-icon.salesforce-icon {
+    height: 28px;
+}
+.connection-item.connection-item-padded .connection-details {
+    /* Ajuste este valor (ex: 10px, 15px) como preferir */
+    margin-left: 20px;
+}
+/* Ajuste do corpo do modal de perfil para abas */
+.settings-modal .profile-body {
+    padding: 0; /* Remove o padding do body principal */
+    text-align: left;
+    max-height: 550px;
+    min-height: auto; /* Permite que o modal cresça com o conteúdo */
+}
+
+/* (Copia estilos das abas do Admin) */
+.profile-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border-color);
+    width: fit-content; /* Faz o container ocupar apenas o espaço necessário */
+    margin: -17px auto -5px auto; /* Centraliza o bloco no modal */
+    padding-left: 0; /* Remove padding lateral que forçava a largura */
+    padding-right: 0;
+}
+.profile-tab {
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-secondary-color);
+    border-bottom: 3px solid transparent;
+    margin-bottom: -1px; /* Alinha com a borda */
+}
+.profile-tab:hover {
+    color: var(--text-primary-color);
+}
+.profile-tab.active {
+    color: var(--accent-color);
+    border-bottom-color: var(--accent-color);
+}
+
+/* Conteúdo das abas */
+.profile-tab-content {
+    padding: 25px 30px 30px;
+}
+
+/* (Req 1) Estilo do Nome de Funcionário (Read-only) */
+.profile-username-display.read-only {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-secondary-color);
+    margin-top: -5px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+.profile-username-display.read-only strong {
+    color: var(--text-tertiary-color);
+    font-weight: 600;
+}
+
+/* (Req 2) Estilos do formulário de Senha */
+.password-change-form .modal-input-group {
+    margin-bottom: 15px;
+}
+.password-change-form .button-full-width {
+    width: 100%; /* Botão ocupa 100% no modal */
+    margin-top: 10px;
+}
+
+/* (Req 3 & 4) Estilos das listas de Atividade e Dashboards */
+.profile-activity-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    /* max-height: 350px; (REMOVIDO) */
+    /* overflow-y: auto; (REMOVIDO) */
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+.profile-activity-item,
+.profile-dashboard-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+    text-decoration: none;
+    color: var(--text-primary-color);
+}
+.profile-activity-list a.profile-dashboard-item:hover {
+    background-color: var(--card-bg-color);
+    color: var(--accent-color);
+}
+.profile-activity-item:last-child {
+    border-bottom: none;
+}
+.profile-activity-list a.profile-dashboard-item {
+    /* Define o layout para ocupar o espaço da linha */
+    display: flex; 
+    width: 95%; 
+    
+    /* Adiciona margem vertical para separar os itens */
+    margin: 0 auto 5px auto; 
+    
+    /* Adiciona cantos arredondados e padding interno */
+    border-radius: 8px; 
+    padding: 10px 15px; 
+    
+    /* Z-index para garantir que fique acima do item de baixo */
+    position: relative;
+}
+
+.profile-activity-item i,
+.profile-dashboard-item i {
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+.profile-activity-item i.fa-check-circle { color: #28a745; }
+.profile-activity-item i.fa-times-circle { color: #dc3545; }
+.profile-activity-item i.fa-hourglass-start { color: var(--text-secondary-color); }
+.profile-dashboard-item i { color: var(--accent-color); }
+
+.profile-activity-details {
+    flex-grow: 1;
+    line-height: 1.4;
+}
+.profile-activity-details strong {
+    font-weight: 600;
+}
+.profile-activity-details span {
+    font-size: 0.85rem;
+    color: var(--text-secondary-color);
+    display: block;
+}
+
+.profile-activity-list .no-activity {
+    text-align: center;
+    color: var(--text-secondary-color);
+    font-style: italic;
+    padding: 30px;
+}
+
+/* (Req 1) Ajuste para o botão "Salvar" do nome */
+#profile-details-save-btn {
+    width: 100%;
+    margin-top: 10px;
+}
+/* Faz com que o input "readonly" (somente leitura) pareça um
+  texto normal, mas ainda mantenha a estrutura do formulário.
+*/
+.profile-tab-content .hub-modal-input[readonly] {
+    background-color: var(--bg-color) !important; 
+    cursor: not-allowed !important;
+    color: var(--text-secondary-color);
+    font-weight: 500;
+}
+
+/* (Req 3) Capitaliza o nome de usuário (Opcional, mas limpo) */
+.profile-tab-content input[value*="@"] {
+    text-transform: none;
+}
+
+/* Separador (entre Nome e Senha) */
+.profile-tab-content hr {
+    border-color: var(--border-color); 
+    border-top: 0; 
+    margin: 25px 0;
+}
+/* (Req 1) Estilos para os campos de texto "Nome: Teste" */
+/* (Req 2) Esconde a UI antiga de botões de foto */
+.profile-button {
+    display: none !important;
+}
+
+/* (Req 2) Wrapper da Imagem de Perfil */
+.profile-image-wrapper {
+    position: relative;
+    width: 120px; /* Mesmo tamanho do .profile-preview-large */
+    height: 120px; /* Mesmo tamanho do .profile-preview-large */
+    margin: 0 auto 20px auto; /* Centraliza o wrapper */
+}
+
+/* (Req 2) Botão da Câmera */
+.profile-edit-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 36px;
+    height: 36px;
+    background-color: var(--accent-color);
+    color: white;
+    border-radius: 50%;
+    border: 2px solid var(--card-bg-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+.profile-edit-button:hover {
+    transform: scale(1.1);
+    background-color: var(--accent-color-hover);
+}
+
+/* (Req 2) Dropdown de Edição de Foto (copiado do .access-dropdown) */
+.profile-edit-dropdown {
+    position: absolute;
+    top: calc(100% + 10px); /* Surge logo abaixo do botão de câmera */
+    left: calc(100% - 42px); /* Alinha a borda esquerda com o botão (38px largura + 4px de afastamento) */
+    right: auto;
+    z-index: 1200;
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    min-width: 180px;
+    padding: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: all 0.2s ease;
+}
+.profile-edit-dropdown.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* (Req 2) Copiando estilos genéricos para os botões do dropdown */
+/* (Req 1) Estilo para o botão de Lápis (Editar Nome) */
+.profile-edit-pencil-btn {
+    position: absolute;
+    right: 15px; 
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-secondary-color);
+    cursor: pointer;
+    font-size: 0.9rem;
+    
+    /* --- INÍCIO DA MODIFICAÇÃO --- */
+    padding: 0; /* Remove padding */
+    border-radius: 0; /* Remove arredondamento (por segurança) */
+    /* --- FIM DA MODIFICAÇÃO --- */
+
+    transition: all 0.2s ease;
+}
+
+.profile-edit-pencil-btn:hover {
+    color: var(--accent-color);
+    
+    /* --- INÍCIO DA MODIFICAÇÃO --- */
+    background-color: transparent; /* Garante que o fundo não apareça */
+    /* --- FIM DA MODIFICAÇÃO --- */
+}
+#profile-password-save-btn {
+    width: 55%;
+    margin-top: 20px; /* Adiciona um espaço (igual ao "Salvar Nome") */
+}
+#edit-name-save-btn {
+    width: 50%;
+}
+.profile-tab-content .modal-input-group {
+    text-align: left;
+}
+
+.profile-tab-content .modal-input-group label {
+    padding-left: 0; /* Garante que não haja padding extra */
+}
+/* (Garante que o link <a> (filho) tenha o estilo flex correto) */
+.profile-dashboard-item {
+    display: flex;
+    align-items: center;
+    border: none;
+    padding: 9px 15px;
+}
+.profile-dashboard-item:hover {
+    /* (Herda a cor do .profile-activity-item:hover) */
+    color: inherit; 
+}
+
+/* (Faz o <li> (pai) centralizar o link <a>) */
+.profile-activity-item.is-dashboard-link {
+    justify-content: center;
+}
+#profile-dashboard-list .profile-activity-details strong {
+    white-space: nowrap; /* Impede a quebra de linha */
+    overflow: hidden; /* Esconde o excesso */
+    text-overflow: ellipsis; /* Adiciona "..." */
+    
+    /* Garante que o <strong> ocupe o espaço para o ellipsis funcionar */
+    display: block; 
+    width: 100%; 
+}
+
+/* 2. Garante que o contêiner do link (<a>) ocupe 100% do <li> */
+#profile-dashboard-list .profile-dashboard-item {
+    width: 100%; 
+    box-sizing: border-box;
+}
+
+/* 3. Garante que o contêiner de detalhes possa encolher */
+#profile-dashboard-list .profile-activity-details {
+    min-width: 0; /* Permite que o flex-grow encolha corretamente */
+}
+.profile-edit-dropdown .access-dropdown-item {
+    /* (Req 1) Alinha o conteúdo (ícone + texto) ao centro */
+    justify-content: center; 
+}
+#tab-security h4 {
+    margin-top: 5px;
+}
+#tab-security .password-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+#tab-security .password-input-wrapper .profile-input {
+    padding-right: 44px;
+}
+#tab-security .password-toggle-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: transparent;
+    color: var(--text-secondary-color);
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 32px;
+}
+#tab-security .password-toggle-btn:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+#tab-security .password-toggle-btn i {
+    font-size: 1rem;
+}
+#tab-activity h4 {
+    margin-top: 5px;
+}
+/* --- NOVO: Estilo para Status de Formulário (Req 1) --- */
+.hub-form-status {
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin: -20px auto 12px;
+    text-align: center;
+    display: none; /* (Começa oculto) */
+}
+.hub-form-status.visible {
+    display: block;
+}
+.hub-form-status.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+.hub-form-status.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+#edit-name-overlay .settings-modal {
+    /* Altere este valor para o que desejar (ex: 350px, 450px) */
+    width: 380px; 
+}
+.settings-modal-overlay#register-overlay .scheduler-queue-tabs,
+.settings-modal-overlay#admin-overlay .scheduler-queue-tabs {
+    
+    /* Sobrescreve o padding-left inline do HTML */
+    padding-left: 0 !important; 
+    padding-right: 0;
+
+    /* A principal lógica de centralização */
+    width: fit-content; /* Faz com que o bloco ocupe apenas o espaço das abas */
+    margin: 0 auto 20px auto; /* Centraliza horizontalmente e adiciona margem inferior */
+    
+    /* Garante que os itens fiquem na mesma linha (já em display: flex) */
+    justify-content: center; 
+}
+.header-tools #settings-btn, 
+.header-tools #about-btn, 
+.header-tools #fullscreen-btn,
+.header-tools #access-btn,
+.internal-header-tools #access-btn { 
+    padding-top: 3px; 
+}
+.profile-info-group #profile-name-span {
+    padding-right: 25px; 
+}
+.profile-info-grid {
+    display: grid;
+    gap: 15px;
+    margin-bottom: -8px;
+    row-gap: 20px; /* Aumenta o espaçamento vertical (era 15px) */
+    margin-top: 40px;
+    max-width: 230px;
+    margin-left: auto; /* Centraliza o bloco */
+    margin-right: auto; /* Centraliza o bloco */
+}
+
+/* (Req 1) NOVO: Container para Título e Campo (Célula do Grid) */
+.profile-field-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    
+    /* --- INÍCIO DA MODIFICAÇÃO (Req 1) --- */
+    position: relative; /* Define o contexto para o rótulo absoluto */
+    /* --- FIM DA MODIFICAÇÃO --- */
+}
+
+/* (Req 1) MODIFICADO: Estilo da Label (Título) */
+.profile-field-container label {
+    font-weight: 600;
+    color: #000000;
+    font-size: 0.9rem;
+    padding-left: 0;
+    text-align: left;
+    white-space: nowrap;
+
+    /* Posicionamento e Conteúdo */
+    position: absolute;
+    
+    /* --- INÍCIO DA MODIFICAÇÃO (Borda e Topo) --- */
+    top: -12px; /* Sobe a label para compensar a borda de 1px */
+    z-index: 2; /* Garante que fique sobre a borda da caixa */
+    background-color: #fafafa; /* Fundo do modal/card */
+    
+    /* Borda e Arredondamento */
+    border: 1px solid var(--border-color); /* Borda delineada cinza */
+    border-radius: 4px; /* Arredondamento */
+    padding: 0 5px; 
+    /* --- FIM DA MODIFICAÇÃO --- */
+
+    left: 10px;
+    margin-bottom: 0; 
+}
+
+/* (Req 1) MODIFICADO: Container do Valor (a caixa com o texto e o lápis) */
+.profile-info-group {
+    width: 100%;
+    
+    /* --- INÍCIO DA MODIFICAÇÃO (Req 1: Ajuste de Padding) --- */
+    /* Aumenta o padding superior para compensar a label flutuante */
+    padding: 20px 15px 8px 15px; 
+    /* --- FIM DA MODIFICAÇÃO --- */
+    
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--bg-color);
+    margin-bottom: 0 !important; 
+    
+    position: relative; 
+    text-align: left; 
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* (Ajuste do lápis) Garante que o lápis fique na posição correta no novo layout */
+.profile-info-group .profile-edit-pencil-btn {
+    top: 50%; /* Centraliza no meio da caixa (que agora tem padding fixo) */
+    transform: translateY(-50%);
+}
+.profile-info-grid,
+.profile-info-grid * {
+    box-sizing: border-box;
+}
+
+/* 2. Garante que os containers de valor não quebrem o texto */
+.profile-info-group span {
+    /* (Este estilo já existia, mas vamos garantir o no-wrap) */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#profile-overlay .settings-modal {
+    max-width: 660px;
+    width: 88%;
+  padding: 0;
+  background-color: transparent;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.new-profile-modal {
+  background-color: var(--card-bg-color);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px var(--shadow-color-hover);
+  border: 1px solid var(--border-color);
+  width: 100%;
+}
+
+.profile-header-card {
+  padding: 25px 30px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto auto;
+  gap: 5px 20px;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.profile-avatar-wrapper {
+  position: relative;
+  grid-row: 1 / 3;
+}
+
+.profile-avatar {
+    width: 110px;
+    height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--border-color);
+}
+
+.profile-camera-btn {
+  position: absolute;
+    bottom: 4px;
+    right: 4px;
+    width: 38px;
+    height: 38px;
+  background-color: var(--accent-color);
+  color: white;
+  border-radius: 50%;
+  border: 2px solid var(--card-bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+    font-size: 1rem;
+  cursor: pointer;
+  transition: transform .2s ease, background-color .2s ease;
+  z-index: 10;
+}
+
+.profile-camera-btn:hover {
+  transform: scale(1.1);
+  background-color: var(--accent-color-hover);
+}
+
+.profile-edit-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: calc(100% - 42px);
+    right: auto;
+    z-index: 1200;
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    min-width: 180px;
+    padding: 8px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: all .2s ease;
+}
+
+.profile-edit-dropdown.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.profile-edit-dropdown .access-dropdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 10px 12px;
+  background: none !important;
+  border: none;
+  font-size: 0.95rem;
+  color: var(--text-primary-color);
+  cursor: pointer;
+  box-sizing: border-box;
+  border-radius: 4px;
+  transition: color .2s ease, transform .2s ease, background-color .2s ease;
+}
+
+.profile-edit-dropdown .access-dropdown-item:hover {
+  color: var(--accent-color);
+  background-color: var(--bg-color) !important;
+}
+
+.profile-edit-dropdown .access-dropdown-item i {
+  font-size: 0.9rem;
+  margin-right: 10px;
+  width: 15px;
+  text-align: center;
+  color: var(--text-secondary-color);
+  flex-shrink: 0;
+  transition: color .2s ease;
+}
+
+.profile-edit-dropdown .access-dropdown-item:hover i {
+  color: var(--accent-color);
+}
+
+.profile-edit-dropdown .access-dropdown-item.danger {
+  color: #dc3545;
+}
+
+.profile-edit-dropdown .access-dropdown-item.danger i {
+  color: #dc3545;
+}
+.profile-user-info {
+  grid-column: 2;
+  grid-row: 1;
+  text-align: left;
+}
+
+.profile-user-info h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-primary-color);
+}
+
+.profile-user-meta {
+  display: flex;
+  gap: 15px;
+  margin-top: 5px;
+  font-size: 0.85rem;
+  color: var(--text-secondary-color);
+}
+
+.profile-user-meta i {
+  margin-right: 5px;
+}
+
+.profile-header-actions {
+  grid-column: 3;
+  grid-row: 1;
+  display: flex;
+  gap: 10px;
+}
+
+.profile-header-btn {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-tertiary-color);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.profile-header-btn:hover {
+  background-color: var(--bg-color);
+  color: var(--text-primary-color);
+}
+
+.profile-header-btn i {
+  margin-right: 6px;
+}
+
+#profile-signout-btn {
+  border-color: transparent;
+  color: var(--text-secondary-color);
+}
+
+#profile-signout-btn:hover {
+  color: #dc3545;
+}
+
+.profile-tags {
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    gap: 8px;
+    margin-top: -6px;
+    flex-wrap: wrap;
+}
+
+.profile-tag {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background-color: var(--bg-color);
+  color: var(--text-tertiary-color);
+  border: 1px solid var(--border-color);
+}
+
+.profile-nav-tabs {
+  display: flex;
+  gap: 10px;
+  padding: 15px 30px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.profile-nav-link {
+  text-decoration: none;
+  color: var(--text-secondary-color);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 8px 12px;
+    border-radius: 10px;
+  display: flex;
+  align-items: center;
+        background: none;
+    cursor: pointer;
+        box-shadow: none;
+}
+
+.profile-nav-link i {
+  margin-right: 8px;
+}
+
+.profile-nav-link:hover {
+    color: var(--text-primary-color);
+    border-color: var(--accent-color-transparent, var(--accent-color));
+}
+
+.profile-nav-link.active {
+  background-color: var(--card-bg-color);
+  color: var(--text-primary-color);
+    box-shadow: none;
+    border-color: #ffffff;
+    border: 1px solid var(--border-color);
+}
+
+.profile-nav-link.disabled-feature {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.profile-form-section {
+  padding: 30px;
+  text-align: left;
+}
+
+.profile-tab-pane {
+    display: none;
+    width: 100%;
+}
+
+.profile-tab-pane.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+}
+
+#tab-profile > *,
+#tab-security > *,
+#tab-activity > *,
+#tab-settings > * {
+    width: 100%;
+    max-width: 520px;
+}
+
+#tab-settings {
+    padding-left: 54px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  max-width: 350px;
+  margin: 0;
+}
+
+.form-group {
+  margin-bottom: 25px;
+  flex-grow: 1;
+  position: relative;
+}
+
+#tab-profile .form-group {
+    width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#tab-profile .form-divider {
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#tab-profile .form-row,
+#tab-security .form-row,
+#tab-settings .form-row {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#tab-profile .form-row {
+    margin-bottom: 12px;
+    width: 100%;
+    max-width: 520px;
+}
+
+#tab-security h4,
+#tab-activity h4 {
+    text-align: left;
+    width: 100%;
+    margin-bottom: 6px;
+    margin-left: 220px;
+}
+
+#tab-security #profile-password-status,
+#tab-profile #profile-name-status {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#tab-security #password-change-form {
+    width: 50%;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#tab-activity .profile-activity-list {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    max-width: 520px;
+}
+
+#tab-settings .setting-group {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#tab-settings .language-settings .language-selector,
+#tab-settings .count-selector,
+#tab-settings .theme-selector,
+#tab-settings .language-settings {
+    width: 100%;
+}
+
+#tab-settings .theme-selector,
+#tab-settings .count-selector,
+#tab-settings .language-selector {
+    justify-content: left;
+}
+
+#tab-settings .language-selector select {
+    max-width: 260px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-primary-color);
+}
+
+.profile-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-bg-color);
+  color: var(--text-primary-color);
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 0.95rem;
+    font-family: var(--font-body);
+}
+
+#profile-username.profile-input:disabled {
+  text-transform: uppercase;
+  background-color: var(--bg-color);
+  color: var(--text-secondary-color);
+  cursor: not-allowed;
+}
+
+.profile-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(0,123,255,.2);
+}
+
+.input-check-icon {
+  position: absolute;
+  right: 15px;
+    top: 69%;
+    transform: translateY(-50%);
+  color: #28a745;
+    line-height: 1;
+}
+
+#tab-profile .form-row .form-group {
+    margin-bottom: 18px;
+}
+
+#tab-profile hr.form-divider {
+    margin: -15px 0 12px;
+}
+
+hr.form-divider {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 25px 0;
+}
+
+.form-group-inline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.form-group-inline span {
+  color: var(--text-primary-color);
+  font-weight: 500;
+  font-size: 0.9rem;
+  position: relative;
+  top: -4px;
+}
+
+.permissions-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.permissions-group label {
+    width: 100%;
+    text-align: left;
+}
+
+.permissions-group .form-group-inline {
+    justify-content: center;
+}
+
+.profile-section-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-secondary-color);
+    text-align: center;
+    margin: -10px 0 10px;
+}
+
+#tab-security .profile-section-subtitle,
+#tab-activity .profile-section-subtitle {
+    text-align: left;
+    width: 100%;
+    margin-top: -15px;
+    margin-bottom: 20px;
+    margin-left: 220px;
+}
+
+.language-inline-hint {
+    margin: -10px 0 12px;
+    color: var(--text-secondary-color);
+    font-size: 0.85rem;
+    text-align: left;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 35px;
+  flex-shrink: 0;
+}
+
+.toggle-input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-label {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--border-color);
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.toggle-label:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+.toggle-input:checked + .toggle-label {
+  background-color: #333;
+}
+
+body.theme-dark .toggle-input:checked + .toggle-label {
+  background-color: var(--accent-color);
+}
+
+.toggle-input:checked + .toggle-label:before {
+  transform: translateX(22px);
+}
+
+.profile-form-footer {
+  padding: 20px 30px;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  border-radius: 0 0 16px 16px;
+}
+
+.profile-form-footer .button {
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  width: auto;
+}
+
+.profile-form-footer .btn-cancel {
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary-color);
+}
+
+.profile-form-footer .btn-cancel:hover {
+  background-color: var(--border-color);
+}
+
+.profile-form-footer .btn-save {
+  background-color: #111827;
+  color: white;
+}
+
+body.theme-dark .profile-form-footer .btn-save {
+  background-color: var(--accent-color);
+}
+
+body.theme-dark .profile-form-footer .btn-save:hover {
+  background-color: var(--accent-color-hover);
+}
+
+#tab-security .modal-input-group,
+#tab-activity .modal-input-group,
+#tab-settings .modal-input-group {
+  text-align: left;
+}
+
+#tab-security .hub-modal-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-bg-color);
+  color: var(--text-primary-color);
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 0.95rem;
+    font-family: var(--font-body);
+}
+
+#tab-security .hub-modal-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(0,123,255,.2);
+}
+
+#tab-security .form-row {
+  margin-left: 0;
+  margin-right: 0;
+  max-width: 350px;
+}
+
+.profile-activity-list.new-design {
+  background-color: transparent;
+  border: none;
+  max-height: 350px;
+  overflow-y: auto;
+  max-width: 350px;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.profile-activity-list.new-design .profile-activity-item,
+.profile-activity-list.new-design a.profile-dashboard-item {
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  padding: 12px 15px;
+  display: flex;
+  text-decoration: none;
+  color: var(--text-primary-color);
+}
+
+.profile-activity-list.new-design a.profile-dashboard-item:hover {
+  background-color: var(--bg-color);
+  color: var(--accent-color);
+}
+
+.profile-activity-list.new-design .no-activity {
+  border: 1px dashed var(--border-color);
+  background-color: var(--bg-color);
+  padding: 20px;
+  text-align: center;
+  color: var(--text-secondary-color);
+  font-style: italic;
+  border-radius: 8px;
+}
+
+.profile-activity-item.is-dashboard-link {
+  justify-content: flex-start;
+}
+
+#tab-settings .setting-group {
+  padding-left: 0;
+  padding-right: 0;
+  text-align: left;
+  margin-bottom: 25px;
+  flex-grow: 1;
+  position: relative;
+  max-width: 450px;
+}
+
+#tab-settings .setting-group label {
+  display: block;
+  margin-bottom: 20px; /* <--- VALOR AUMENTADO */
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-primary-color);
+  padding-left: 0;
+}
+
+#tab-settings .count-selector {
+  justify-content: flex-start;
+  gap: 0;
+  margin: 0 -5px;
+}
+
+#tab-settings .count-selector .setting-option {
+  min-width: 60px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.card-count-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 18px;
+    min-width: 90px;
+    border-radius: 10px;
+}
+
+.card-count-option .count-label {
+    font-size: 0.85rem;
+    color: inherit;
+}
+
+.count-icon {
+    display: grid;
+    gap: 4px;
+    width: 60px;
+    justify-items: center;
+}
+
+.count-icon .count-square {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 4px;
+    background-color: var(--border-color);
+    transition: background-color 0.2s ease;
+}
+
+.count-icon.grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+    width: 38px;
+}
+
+.count-icon.grid-6 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.count-icon.grid-8 {
+    grid-template-columns: repeat(4, 1fr);
+    width: 78px;
+}
+
+.card-count-option.active .count-icon .count-square {
+    background-color: var(--accent-color);
+}
+
+#tab-settings .language-settings .language-selector {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+#tab-settings .language-settings select {
+    width: 220px;
+    max-width: 100%;
+}
+
+#tab-settings .language-settings .helper-text {
+    margin-top: -8px;
+    margin-bottom: 20px;
+    font-size: 0.85rem;
+    color: var(--text-secondary-color);
+}
+
+#tab-settings #profile-language-status.hub-form-status {
+    width: 200px;
+    text-align: center;
+    margin-top: 20px;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+#tab-settings #profile-language-status.hub-form-status.visible {
+    display: inline-flex;
+}
+
+#tab-settings .button-danger {
+  margin-left: 0;
+  margin-right: 0;
+}
+.profile-form-footer .button.btn-danger-outline {
+    background-color: transparent;
+    border: 1px solid #dc3545;
+    color: #dc3545;
+}
+.profile-form-footer .button.btn-danger-outline:hover {
+    background-color: #dc3545;
+    color: white;
+}
+.settings-modal-overlay.stats-mode .settings-modal {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    max-width: 600px; /* (Um bom tamanho para a lista) */
+}
+
+.settings-modal-overlay.stats-mode .settings-body {
+    background: var(--card-bg-color);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px var(--shadow-color-hover);
+    border: 1px solid var(--border-color);
+    position: relative;
+    padding-top: 50px; /* (Espaço para o botão de fechar) */
+    text-align: left; /* (Garante alinhamento) */
+}
+
+/* (Ajusta as listas dentro do modal de estatísticas) */
+.settings-modal-overlay.stats-mode .settings-body .profile-activity-list.new-design {
+    max-width: 100%;
+    max-height: 400px;
+}
+.settings-modal-overlay.stats-mode .settings-body h4 {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text-primary-color);
+    padding-left: 0;
+}
+.settings-modal-overlay.stats-mode .profile-activity-list.new-design a.profile-dashboard-item {
+    border: none;
+    /* (Adiciona uma sombra leve para compensar a falta de borda) */
+    box-shadow: 0 2px 5px var(--shadow-color-light);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+.settings-modal-overlay.stats-mode .profile-activity-list.new-design a.profile-dashboard-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow-color);
+    background-color: var(--bg-color);
+}
+#tab-profile hr.form-divider + .form-group > label {
+    margin-bottom: 20px; /* (Aumenta o padrão de 8px) */
+}
+#tab-security #profile-password-status.hub-form-status {
+    max-width: 350px; /* (Mesma largura do .form-row) */
+    margin-left: 0; /* (Alinha à esquerda) */
+    margin-right: 0; /* (Alinha à esquerda) */
+    box-sizing: border-box; /* (Garante que o padding não estoure) */
+}
+#cropper-overlay .settings-modal.cropper-modal-styling {
+    max-width: 90vw;
+    width: 600px;
+    overflow: hidden !important; /* <-- ADICIONADO */
+    padding: 0;
+    background: var(--card-bg-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+#cropper-overlay.settings-modal-overlay.visible 
+.settings-modal.cropper-modal-styling {
+    transform: scale(1);
+}
+
+/* Corpo */
+.cropper-modal-styling .settings-body {
+    padding: 20px 20px 0 !important;
+    margin: 0 !important; /* <-- ADICIONADO */
+    background: transparent;
+    border-radius: 12px 12px 0 0;
+    border: none;
+}
+
+/* Container da imagem */
+.cropper-modal-styling .cropper-container {
+    max-height: 450px;
+}
+
+/* Rodapé */
+#cropper-footer {
+    padding: 20px 30px;
+    background: var(--bg-color);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 0;
+    border-top: 1px solid var(--border-color);
+    border-radius: 0 0 16px 16px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Botões */
+#cropper-footer .button {
+    padding: 10px 20px;
+    font-size: .9rem;
+}
+
+#cropper-footer .btn-save {
+    background: #111827;
+    color: #fff;
+}
+body.theme-dark #cropper-footer .btn-save {
+    background: var(--accent-color);
+}
+body.theme-dark #cropper-footer .btn-save:hover {
+    background: var(--accent-color-hover);
+}
+
+#cropper-footer .btn-cancel {
+    background: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary-color);
+}
+#cropper-footer .btn-cancel:hover {
+    background: var(--border-color);
+}
+.cropper-modal-styling .settings-body #cropper-close-btn {
+    display: none;
+}
+#tab-profile #profile-name-status {
+    max-width: 350px; /* (Define a mesma largura máxima do .form-row) */
+    margin-left: 0;
+    margin-right: auto;
+    box-sizing: border-box; 
+}
+@media (max-width: 768px) {
+  #profile-overlay .settings-modal {
+    max-width: 100%;
+    width: 95vw;
+    height: auto;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+    #tab-settings {
+        padding-left: 0;
+    }
+
+  .new-profile-modal {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .profile-header-card {
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto auto;
+    padding: 20px;
+  }
+
+  .profile-avatar-wrapper {
+    grid-row: 1 / 3;
+  }
+
+  .profile-avatar {
+    width: 65px;
+    height: 65px;
+  }
+
+  .profile-camera-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+    bottom: 3px;
+    right: 3px;
+  }
+
+  .profile-edit-dropdown {
+    left: 0;
+    top: 70px;
+  }
+
+  .profile-user-info h2 {
+    font-size: 1.1rem;
+  }
+
+  .profile-user-meta {
+    flex-direction: column;
+    gap: 3px;
+    font-size: 0.8rem;
+  }
+
+  .profile-header-actions {
+    grid-column: 1 / 3;
+    grid-row: 3;
+    margin-top: 10px;
+  }
+
+  .profile-tags {
+    grid-column: 1 / 3;
+    grid-row: 4;
+    flex-wrap: wrap;
+  }
+
+  .profile-nav-tabs {
+    padding: 10px;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .profile-form-section {
+    padding: 20px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+    max-width: 100%;
+  }
+
+  .form-group-inline {
+    gap: 8px;
+  }
+
+  .form-group-inline span {
+    font-size: 0.85rem;
+  }
+
+  .profile-form-footer {
+    padding: 15px 20px;
+  }
+}
+
+/* =============================================
+   HUB AREA SELECTOR (below logo, left-aligned)
+   ============================================= */
+.logo-area-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.hub-area-selector {
+  position: relative;
+  margin-left: 2px;
+}
+
+.hub-area-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 18px;
+  border-radius: 999px;
+  border: 1px solid rgba(17, 25, 40, 0.15);
+  background: linear-gradient(135deg, var(--card-bg-color) 0%, rgba(0, 123, 255, 0.04) 100%);
+  color: var(--text-primary-color);
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+#hub-area-btn-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+#hub-area-btn-label i {
+  font-size: 0.82rem;
+  opacity: 0.75;
+}
+
+.hub-area-btn:hover {
+  background: linear-gradient(135deg, rgba(0, 123, 255, 0.08) 0%, rgba(0, 123, 255, 0.04) 100%);
+  color: var(--accent-color);
+  border-color: rgba(0, 123, 255, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.12);
+  transform: translateY(-1px);
+}
+
+body.theme-dark .hub-area-btn {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, var(--card-bg-color) 0%, rgba(99, 179, 237, 0.06) 100%);
+}
+
+body.theme-dark .hub-area-btn:hover {
+  background: linear-gradient(135deg, rgba(99, 179, 237, 0.12) 0%, rgba(99, 179, 237, 0.04) 100%);
+  border-color: rgba(99, 179, 237, 0.35);
+  box-shadow: 0 4px 12px rgba(99, 179, 237, 0.15);
+}
+
+.hub-area-btn.single-area {
+  cursor: default;
+  pointer-events: none;
+}
+
+.hub-area-btn.single-area .hub-area-chevron {
+  display: none;
+}
+
+.hub-area-chevron {
+  font-size: 0.65rem;
+  transition: transform 0.2s;
+  color: var(--text-tertiary-color);
+}
+
+.hub-area-btn.open .hub-area-chevron {
+  transform: rotate(180deg);
+}
+
+.hub-area-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  background: var(--card-bg-color);
+  border: 1px solid rgba(17, 25, 40, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  min-width: 190px;
+  overflow: hidden;
+  z-index: 200;
+}
+
+body.theme-dark .hub-area-dropdown {
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.hub-area-dropdown.open {
+  display: block;
+}
+
+.hub-area-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--text-secondary-color);
+  transition: background 0.15s;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+
+.hub-area-dropdown-item:hover {
+  background: rgba(15, 23, 42, 0.05);
+  color: var(--text-primary-color);
+}
+
+body.theme-dark .hub-area-dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.hub-area-dropdown-item.active {
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
+.hub-area-dropdown-item i {
+  font-size: 0.85rem;
+  width: 16px;
+  text-align: center;
+  opacity: 0.75;
+}
+
+.hub-area-dropdown-item.active i {
+  opacity: 1;
+  color: var(--accent-color);
+}
+
+/* Admin: allowed areas checkboxes */
+.allowed-areas-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.hub-area-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: var(--color-text, #333);
+}
+
+.hub-area-checkbox-label input[type="checkbox"] {
+  accent-color: var(--color-primary, #4a6cf7);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
