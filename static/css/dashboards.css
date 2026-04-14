@@ -1,0 +1,475 @@
+/* Seus estilos CSS originais permanecem aqui, sem alterações */
+body { 
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+    min-height: 100vh; padding: 40px 20px 40px 20px; box-sizing: border-box; overflow-x: hidden;
+    /* ALTERADO: Usando variáveis */
+    background-color: var(--bg-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+body.dashboard-view-active {
+    padding-top: 25px;
+    overflow-y: hidden;
+}
+body.dashboard-view-active .internal-search-stack {
+    margin-bottom: 10px;
+}
+.main-title { 
+    font-size: 3rem; font-weight: 700; margin: 0 0 10px 0; 
+    /* ALTERADO: Usando variáveis */
+    color: var(--text-primary-color); 
+}
+.subtitle { 
+    font-size: 1.2rem; 
+    /* ALTERADO: Usando variáveis */
+    color: var(--text-secondary-color); 
+    margin-bottom: 60px; display: flex; align-items: center;
+    margin-top: 20px;  
+    justify-content: center; gap: 10px; 
+}
+.dashboard-container { width: 95vw; height: 85vh; display: none; flex-direction: column;align-items: center; margin-top: -15px; }
+body.dashboard-view-active .dashboard-container {
+    margin-top: -30px;
+    height: calc(100vh - 160px);
+    max-height: 88vh;
+}
+
+/* === SPLIT VIEW === */
+#dashboard-view.split-view {
+    flex-direction: row;
+    gap: 8px;
+    align-items: stretch;
+}
+#dashboard-view.split-view .dashboard-iframe {
+    flex: 1;
+    width: 50%;
+    max-width: none !important;
+}
+
+/* Overlay da tela de seleção durante o split-pick */
+#selection-screen.split-picking {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    max-width: 100%;
+    max-height: 100vh;
+    background: var(--bg-color);
+    overflow-y: auto;
+    padding: 20px 20px 40px;
+    box-sizing: border-box;
+}
+
+/* Banner informativo no topo durante split-pick */
+#split-pick-banner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent-color);
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+/* Botão split ativo (modo pick) */
+.split-btn-active {
+    color: var(--accent-color) !important;
+}
+
+.dashboard-iframe { 
+    width: 100%; height: 100%; border: none; border-radius: 16px; 
+    /* ALTERADO: Usando variáveis */
+    box-shadow: 0 8px 32px var(--shadow-color); 
+}
+#selection-screen { display: flex; flex-direction: column; align-items: center; width: 100%; text-align: center; max-width: 550px; max-height: calc(100vh - 100px); }
+.system-selector { 
+    display: flex; justify-content: center; align-items: center; 
+    gap: 40px; margin: 20px 0 30px; 
+    /* ALTERADO: Usando variáveis */
+    border-bottom: 1px solid var(--border-color); 
+    padding-bottom: 30px; width: 100%; max-width: 500px;
+    
+    /* --- ADICIONADO: Desloca o ponto central para a direita --- */
+    box-sizing: border-box; /* Garante que o padding não estoure o max-width */
+}
+.system-selector label { display: flex; align-items: center; gap: 10px; cursor: pointer; transition: all 0.3s ease; }
+.system-selector input[type="radio"] { 
+    -webkit-appearance: none; appearance: none; 
+    /* ALTERADO: Usando variáveis */
+    background-color: var(--card-bg-color); 
+    margin: 0; color: currentColor; width: 1.15em; height: 1.15em; 
+    border: 0.15em solid var(--border-color); 
+    border-radius: 50%; display: grid; place-content: center; 
+}
+.system-selector input[type="radio"]::before { 
+    content: ""; width: 0.65em; height: 0.65em; border-radius: 50%; 
+    transform: scale(0); transition: 120ms transform ease-in-out; 
+    /* ALTERADO: Usando variáveis */
+    box-shadow: inset 1em 1em var(--accent-color); 
+}
+.system-selector input[type="radio"]:checked {
+    /* ALTERADO: Usando variáveis */
+    border-color: var(--accent-color);
+}
+.system-selector input[type="radio"]:checked::before { transform: scale(1); }
+.system-selector img { height: 30px; }
+/* --- ADICIONAR: Efeito de Foco na Seleção --- */
+.system-selector:has(input:checked) label {
+    opacity: 0.6;
+    filter: grayscale(80%);
+}
+.system-selector label:has(input:checked) {
+    opacity: 1;
+    filter: grayscale(0);
+    transform: scale(1.1);
+}
+/* --- FIM da Adição --- */
+.dashboard-options { display: flex; flex-direction: column; gap: 15px; width: 100%; align-items: center; padding-top: 5px; padding-bottom: 5px; }
+
+/* Botões de ação (View/Area) usam cores de destaque, estão OK */
+.view-button { 
+    padding: 15px 20px; font-size: 1rem; font-weight: 600; 
+    border: none; border-radius: 8px; color: white; 
+    /* ALTERADO: Usando variáveis */
+    background-color: var(--accent-color); 
+    cursor: pointer; transition: background-color 0.2s ease, transform 0.2s ease; 
+    width: 50%; max-width: 300px;
+}
+.view-button:hover { 
+    /* ALTERADO: Usando variáveis */
+    background-color: var(--accent-color-hover); 
+    transform: translateY(-2px); 
+}
+.hidden { display: none !important; }
+.area-button { padding: 15px 20px; font-size: 1.1rem; font-weight: 600; border: none; border-radius: 8px; color: white; background-color: #1c4587; cursor: pointer; transition: background-color 0.2s ease, transform 0.2s ease; width: 90%; max-width: 300px; }
+.area-button:hover { background-color: #072961; transform: translateY(-2px); }
+.area-selection-container { padding-left: 15px; padding-right: 15px; width: 55%; }
+
+/* ALTERADO: Usando variáveis */
+.area-selection-container::-webkit-scrollbar { width: 8px; }
+.area-selection-container::-webkit-scrollbar-track { background: var(--bg-color); border-radius: 10px; }
+.area-selection-container::-webkit-scrollbar-thumb { background: var(--text-secondary-color); border-radius: 10px; }
+.area-selection-container::-webkit-scrollbar-thumb:hover { background: var(--text-tertiary-color); }
+
+#preview-panel { 
+    position: fixed; right: 250px; top: 50%; transform: translateY(-50%); 
+    width: 350px; 
+    /* ALTERADO: Usando variáveis */
+    background-color: var(--card-bg-color); 
+    border-radius: 16px; 
+    border: 1px solid var(--border-color); 
+    box-shadow: 0 8px 32px var(--shadow-color); 
+    padding: 20px; z-index: 100; opacity: 0; visibility: hidden; 
+    transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease, border-color 0.3s ease; 
+}
+#preview-panel.visible { opacity: 1; visibility: visible; }
+#preview-image { 
+    width: 100%; height: auto; border-radius: 8px; margin-bottom: 15px; 
+    /* ALTERADO: Usando variáveis */
+    background-color: var(--bg-color); 
+}
+#preview-description { 
+    font-size: 0.9rem; 
+    /* ALTERADO: Usando variáveis */
+    color: var(--text-secondary-color); 
+    line-height: 1.5; margin: 0; text-align: left; 
+}
+#preview-tags-container { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 15px; }
+.preview-tag { padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; border: 1px solid; }
+
+/* As cores das tags são específicas e estão OK, exceto a 'gray' */
+.tag-orange { color: #c75c04; background-color: #fff3e0; border-color: #ffe0b2; }
+.tag-green { color: #2e7d32; background-color: #e8f5e9; border-color: #c8e6c9; }
+.tag-blue { color: #1565c0; background-color: #e3f2fd; border-color: #bbdefb; }
+.tag-gray { 
+    /* ALTERADO: Usando variáveis */
+    color: var(--text-tertiary-color); 
+    background-color: var(--bg-color); 
+    border-color: var(--border-color); 
+}
+.tag-purple { color: #5e35b1; background-color: #ede7f6; border-color: #d1c4e9; }
+
+/* --- ADICIONAR: Estilos da Paginação --- */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+.page-button {
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-tertiary-color);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+.page-button:hover:not(:disabled) {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+.page-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: var(--bg-color);
+}
+.page-info {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary-color);
+}
+/* --- FIM da Adição --- */
+
+/* --- ADICIONAR: Correção de Flicker da Paginação Looker --- */
+/* Esconde os botões da página 2 (filhos 5, 6, 7, 8) por padrão */
+#area-selection .area-button:nth-child(n+5) {
+    display: none;
+}
+/* --- FIM da Adição --- */
+/* --- (Req 1) ESTILOS DO MODAL DE LOGIN --- */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    opacity: 0; 
+    visibility: hidden; 
+    transition: opacity 0.25s ease, visibility 0s 0.25s;
+}
+.modal-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.25s ease;
+}
+
+.modal-content {
+    background-color: var(--card-bg-color);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 320px; 
+    text-align: center;
+    position: relative; 
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--text-secondary-color);
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+}
+.modal-close:hover {
+    color: var(--text-primary-color);
+}
+.modal-close:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.modal-logo {
+    height: 35px;
+    margin-bottom: 10px;
+}
+.modal-content p {
+    color: var(--text-secondary-color);
+    margin-bottom: 25px;
+    margin-top: 0;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.modal-input-group {
+    text-align: left;
+}
+.modal-input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--text-tertiary-color);
+}
+.modal-input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--text-primary-color);
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+/* Botões genéricos */
+.button {
+    border: none; padding: 12px 20px; border-radius: 8px; 
+    cursor: pointer; font-size: 15px; font-weight: 600; 
+    transition: all 0.2s ease;
+}
+
+.modal-form .btn-execute {
+    width: 60%;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px; 
+}
+.button.btn-execute {
+    background-color: #28a745; 
+    color: white;
+}
+.button.btn-execute:hover {
+    background-color: #218838;
+}
+.modal-form .btn-save-conn {
+    width: 60%;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -5px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+}
+.modal-form .btn-save-conn:hover {
+    background-color: var(--accent-color-hover);
+}
+.button:disabled {
+    background-color: #cccccc !important; 
+    cursor: not-allowed; 
+    opacity: 0.7; 
+}
+@media (max-width: 768px) {
+    body {
+        /* Alinha com o padding-top do hub.html (mobile) */
+        padding-top: 120px; 
+    }
+    body.dashboard-view-active {
+        padding-top: 90px;
+        overflow-y: hidden;
+    }
+    .main-title {
+        font-size: 2.2rem;
+    }
+    .subtitle { 
+        /* (Req 4.3) Fonte menor e menos margem */
+        font-size: 0.9rem; 
+        margin-bottom: 30px;
+        margin-top: -20px;  
+    }
+    
+    /* --- Correção Ícones (Req 4) --- */
+    .system-selector {
+        flex-direction: column; 
+        gap: 25px; /* Aumenta o espaço vertical */
+        align-items: center; /* Centraliza (em vez de 'flex-start') */
+        max-width: 100%;
+    }
+    /* Restaura o zoom/foco */
+    .system-selector:has(input:checked) label {
+        opacity: 0.6;
+        filter: grayscale(80%);
+        transform: none; /* Remove zoom */
+    }
+    .system-selector label:has(input:checked) {
+        opacity: 1;
+        filter: grayscale(0);
+        transform: scale(1.05); /* Mantém um leve zoom */
+    }
+
+    /* Ajusta botões de área */
+    .area-selection-container {
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .area-button,
+    .view-button {
+        width: 90%; /* (Era 100%) */
+        max-width: 300px; /* Define um limite máximo */
+    }
+
+    /* Esconde o preview (não funciona em toque) */
+    #preview-panel {
+        display: none;
+    }
+
+    /* Ajuste do Iframe */
+    .dashboard-container {
+        width: 100%;
+        height: 80vh; /* Altura do iframe */
+    }
+    body.dashboard-view-active .dashboard-container {
+        height: calc(100vh - 220px);
+        max-height: 82vh;
+    }
+}
+.logo-light { display: none; }
+.logo-dark { display: none; }
+body:not(.theme-dark) .logo-light { 
+    display: inline-block; /* (Usa inline-block para centralizar) */
+    vertical-align: middle;
+}
+body.theme-dark .logo-dark { 
+    display: inline-block; 
+    vertical-align: middle;
+}
+
+/* (Fix para logos no seletor de sistema) */
+.system-selector label {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* (Fix para logos no modal de login) */
+.modal-content .modal-logo.logo-dark {
+    display: none; 
+}
+body.theme-dark .modal-content .modal-logo.logo-dark {
+    display: inline-block; /* Show dark logo */
+}
+body:not(.theme-dark) .modal-content .modal-logo.logo-light {
+    display: inline-block; /* Show light logo */
+}
+.nav-tab.disabled {
+    pointer-events: none; /* Desabilita o clique */
+    cursor: not-allowed;
+    opacity: 0.75;
+    background-color: rgba(15, 23, 42, 0.08);
+    color: var(--text-tertiary-color);
+    box-shadow: none;
+}
+
+body.theme-dark .nav-tab.disabled {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.7);
+    opacity: 0.65;
+}
+
+.nav-tab.disabled i {
+    filter: grayscale(100%);
+    color: inherit;
+}
